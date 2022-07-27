@@ -1,0 +1,62 @@
+.header {
+  background-color:rgb(21, 9, 33);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding: 5px 0px 5px 0px;
+  }
+}
+
+
+
+.nav {
+  display: flex;
+  flex-grow: 2;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  &__main-menu {
+    display: flex;
+    justify-content: center;
+    gap:5rem;
+    flex-grow: 2;
+  }
+
+  &__item {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    color:rgb(199, 205, 210);
+  }
+
+  &__item_active{
+    color:aquamarine;
+  }
+
+  &__user-menu{
+    display: flex;
+    align-items: center;
+    gap:20px;
+  }
+
+  &__account{
+    display:flex;
+    align-items: center;
+    justify-content: center; 
+  }
+
+  &__account-link{
+    font-size: 1.2rem;
+    display:block;
+    border:3px solid rgb(199, 205, 210);
+    padding:5px 20px 5px 20px;;
+    border-radius:1rem;
+    text-transform: uppercase;
+    color:rgb(199, 205, 210);
+  }
+
+
+}
+
+
