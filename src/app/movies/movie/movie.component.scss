@@ -1,0 +1,22 @@
+.card {
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    cursor: pointer;
+  }
+  &__img-box {
+    height: 300px;
+  }
+  &__image {
+    max-width: 100%;
+    transition: all 0.3s ease;
+  }
+
+  &__image:hover {
+    transform: scale(1.05);
+  }
+  &__description {
+    padding-top: 10px;
+  }
+}
