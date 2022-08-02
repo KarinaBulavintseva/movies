@@ -15,9 +15,13 @@ export interface Movie {
   vote_count: number;
 }
 
-export interface responseData {
+export interface ResponseData {
   page: number;
   results: Movie[];
   total_pages: number;
   total_results: number;
+}
+
+export interface UrlProperties {
+  pageNumber?: number;
 }
