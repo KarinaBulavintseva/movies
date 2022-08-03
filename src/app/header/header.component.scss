@@ -1,15 +1,13 @@
 .header {
-  background-color:rgb(21, 9, 33);
+  background-color: rgb(21, 9, 33);
 
   &__inner {
     display: flex;
     align-items: center;
     gap: 50px;
-    padding: 5px 0px 5px 0px;
+    padding: 15px 0px 15px 0px;
   }
 }
-
-
 
 .nav {
   display: flex;
@@ -20,43 +18,52 @@
   &__main-menu {
     display: flex;
     justify-content: center;
-    gap:5rem;
+    gap: 5rem;
     flex-grow: 2;
   }
 
   &__item {
     text-transform: uppercase;
     font-size: 1.2rem;
-    color:rgb(199, 205, 210);
+    color: rgb(199, 205, 210);
   }
 
-  &__item_active{
-    color:aquamarine;
+  &__item_active {
+    color: aquamarine;
   }
 
-  &__user-menu{
+  &__user-menu {
     display: flex;
     align-items: center;
-    gap:20px;
+    gap: 20px;
   }
 
-  &__account{
-    display:flex;
+  &__account {
+    display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
   }
 
-  &__account-link{
+  &__account-link {
     font-size: 1.2rem;
-    display:block;
-    border:3px solid rgb(199, 205, 210);
-    padding:5px 20px 5px 20px;;
-    border-radius:1rem;
+    display: block;
+    border: 1.5px solid rgb(199, 205, 210);
+    padding: 5px 15px 5px 15px;
+    border-radius: 1rem;
     text-transform: uppercase;
-    color:rgb(199, 205, 210);
+    color: rgb(199, 205, 210);
   }
 
-
+  &__input {
+    font-size: 1.2rem;
+    padding-left: 5px;
+    width: 300px;
+    height: 30px;
+    border-radius: 12px;
+    background: rgba(63, 62, 63, 0.317);
+    color: rgb(199, 205, 210);
+    &:focus {
+      outline: none;
+    }
+  }
 }
-
-
