@@ -15,7 +15,13 @@
 
       <div class="nav__user-menu">
         <div class="nav__search">
-          <input class="nav__input" type="text" placeholder="Search" />
+          <input
+            class="nav__input"
+            type="text"
+            placeholder="Search"
+            [(ngModel)]="inputText"
+          />
+          <button (click)="onSearch()">Click</button>
         </div>
 
         <div class="nav__bookmark">

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Movie, UrlProperties } from '../interfaces/interfaces';
-import { PaginationService } from '../pagination/pagination.service';
+import { Movie } from '../interfaces/interfaces';
+import { MoviesService } from '../services/movies.service';
 import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
@@ -14,21 +14,19 @@ export class MoviesComponent implements OnInit, OnDestroy {
   private subscription!: Subscription;
 
   constructor(
-    private storageService: DataStorageService,
-    private paginationService: PaginationService
+    private dataStorageService: DataStorageService,
+    private moviesService: MoviesService
   ) {}
 
   ngOnInit(): void {
-    this.getMovies({});
-    this.subscription = this.paginationService.pageChanged.subscribe((res) =>
-      this.getMovies(res)
+    this.dataStorageService
+      .fetchMovies()
+      .subscribe((res) => (this.movies = res));
+    this.moviesService.valuesChanged$.subscribe((res) =>
+      this.dataStorageService
+        .fetchMovies(res)
+        .subscribe((mov) => (this.movies = mov))
     );
-  }
-
-  getMovies(urlProperties: UrlProperties) {
-    this.storageService
-      .fetchMovies(urlProperties)
-      .subscribe((mov) => (this.movies = mov));
   }
 
   ngOnDestroy() {

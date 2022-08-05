@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {faCirclePlay} from '@fortawesome/free-regular-svg-icons'
-import { faMagnifyingGlass,faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   faBookmark = faBookmark;
-  faMagnifyingGlass = faMagnifyingGlass;
-  faCirclePlay = faCirclePlay;
-  constructor() { }
 
-  ngOnInit(): void {
+  inputText = '';
+
+  constructor(private searchService: SearchService) {}
+
+  ngOnInit(): void {}
+
+  onSearch() {
+    this.searchService.searchMovies(this.inputText);
   }
-
 }

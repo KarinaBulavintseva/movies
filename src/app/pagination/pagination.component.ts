@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MoviesService } from '../services/movies.service';
 import { PaginationService } from './pagination.service';
 
 @Component({
@@ -7,9 +8,20 @@ import { PaginationService } from './pagination.service';
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
-  constructor(public paginationService: PaginationService) {}
+  numberOfPage: number = 1;
 
-  ngOnInit(): void {}
+  constructor(
+    private paginationService: PaginationService,
+    private moviesService: MoviesService
+  ) {}
+
+  ngOnInit(): void {
+    this.moviesService.valuesChanged$.subscribe((res) => {
+      if (res.page) {
+        this.numberOfPage = res.page;
+      }
+    });
+  }
 
   onNextPage() {
     this.paginationService.toNextPage();

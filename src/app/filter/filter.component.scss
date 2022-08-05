@@ -1,0 +1,46 @@
+.filter {
+  height: 100%;
+}
+
+.filter-panel {
+  background: rgb(147, 142, 152);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid black;
+  height: 25%;
+  border-radius: 5px;
+  &__select-options {
+    padding: 20px 0 20px 0;
+  }
+}
+
+.filter-panel__select-genres {
+  padding-top: 15px;
+  background-color: rgb(203, 201, 198);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  height: 190px;
+}
+
+.option {
+  display: block;
+  margin-bottom: 0.25em;
+}
+
+.filter-panel__apply {
+  padding-top: 15px;
+}
+
+.button-apply {
+  padding: 10px 15px 10px 15px;
+  border-radius: 5px;
+  background-color: aquamarine;
+}
+
+:host {
+  width: 25%;
+  border: 2px solid red;
+}

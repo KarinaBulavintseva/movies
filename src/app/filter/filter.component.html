@@ -1,0 +1,28 @@
+<div class="filter">
+  <div class="filter-panel" *ngIf="blockFilterPanel">
+    <p class="filter-panel__title">Sort by</p>
+    <div class="filter-panel__select-options">
+      <select class="filter-panel__select" (change)="onChangeOption($event)">
+        <option
+          class="filter-panel__option"
+          *ngFor="let option of options"
+          [value]="option.value"
+        >
+          {{ option.title }}
+        </option>
+      </select>
+    </div>
+    <p>Genres</p>
+    <div class="filter-panel__select-genres">
+      <label class="check option" *ngFor="let genre of genres">
+        <input
+          class="check__input"
+          type="checkbox"
+          [value]="genre.id"
+          (change)="onPickGenre($event)"
+        />
+        {{ genre.name }}
+      </label>
+    </div>
+  </div>
+</div>

@@ -1,37 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { UrlProperties } from '../interfaces/interfaces';
+import { MoviesService } from '../services/movies.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaginationService {
-  currentPage = 1;
-  maxNumberOfPages = 100;
-  initialPageNumber = 1;
-
-  propertiesObject: UrlProperties = {};
-
-  pageChanged = new Subject<UrlProperties>();
-
-  constructor() {}
+  constructor(private moviesService: MoviesService) {}
 
   toNextPage() {
-    if (this.currentPage < this.maxNumberOfPages) {
-      this.currentPage++;
-      this.emitPageChanging();
+    if (this.moviesService.currentPage < this.moviesService.maxNumberOfPages) {
+      this.moviesService.currentPage++;
+      this.moviesService.onSend();
     }
   }
 
   toPreviousPage() {
-    if (this.currentPage > this.initialPageNumber) {
-      this.currentPage--;
-      this.emitPageChanging();
+    if (this.moviesService.currentPage > this.moviesService.initialPageNumber) {
+      this.moviesService.currentPage--;
+      this.moviesService.onSend();
     }
-  }
-
-  emitPageChanging() {
-    this.propertiesObject.pageNumber = this.currentPage;
-    this.pageChanged.next(this.propertiesObject);
   }
 }
