@@ -8,20 +8,15 @@ import { SearchService } from '../services/search.service';
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent implements OnInit {
+
   genres = this.filterService.genreList;
   options = this.filterService.optionsList;
 
-  blockFilterPanel = true;
-
   constructor(
     private filterService: FilterService,
-    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
-    this.searchService.isFilterPanel$.subscribe(
-      (res) => (this.blockFilterPanel = res)
-    );
   }
 
   onChangeOption(event: Event) {

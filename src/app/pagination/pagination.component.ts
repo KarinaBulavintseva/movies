@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
-import { PaginationService } from './pagination.service';
+import { PaginationService } from '../services/pagination.service';
 
 @Component({
   selector: 'app-pagination',

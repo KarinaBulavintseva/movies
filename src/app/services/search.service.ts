@@ -11,9 +11,8 @@ export class SearchService {
   isFilterPanel$ = new Subject<boolean>();
 
   searchMovies(inputText: string) {
-    this.moviesService.currentPage = this.moviesService.initialPageNumber;
-    this.moviesService.filterObj.searchText = inputText;
-    this.moviesService.onSend();
+    this.moviesService.recieveSearchQueries(inputText);
+
     if (inputText === '') {
       this.isFilterPanel$.next(true);
     } else {

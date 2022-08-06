@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { SearchService } from '../services/search.service';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -8,8 +8,7 @@ import { SearchService } from '../services/search.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  faBookmark = faBookmark;
-
+  faMagnifyingGlass = faMagnifyingGlass;
   inputText = '';
 
   constructor(private searchService: SearchService) {}

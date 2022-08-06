@@ -1,5 +1,6 @@
 <div class="filter">
-  <div class="filter-panel" *ngIf="blockFilterPanel">
+<div class="filter-panel">
+  <div class="filter-panel__inner">
     <p class="filter-panel__title">Sort by</p>
     <div class="filter-panel__select-options">
       <select class="filter-panel__select" (change)="onChangeOption($event)">
@@ -25,4 +26,5 @@
       </label>
     </div>
   </div>
+</div>
 </div>

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { Genres, SortOptions } from '../constants/FilterConstants';
 import { MoviesService } from './movies.service';
 
@@ -17,7 +16,7 @@ export class FilterService {
 
   selectNewOption(event: Event) {
     this.selectedValue = (<HTMLSelectElement>event.target).value;
-    this.emitChangesOfParams();
+    this.notifyChangesOfParams();
   }
 
   filterGenres(event: Event) {
@@ -28,13 +27,13 @@ export class FilterService {
         (item) => item !== (<HTMLInputElement>event.target).value
       );
     }
-    this.emitChangesOfParams();
+    this.notifyChangesOfParams();
   }
 
-  emitChangesOfParams() {
-    this.moviesService.currentPage = this.moviesService.initialPageNumber;
-    this.moviesService.filterObj.option = this.selectedValue;
-    this.moviesService.filterObj.genre = this.idsOfPickedGenres;
-    this.moviesService.onSend();
+  notifyChangesOfParams() {
+    this.moviesService.recieveChangesOfParams(
+      this.selectedValue,
+      this.idsOfPickedGenres
+    );
   }
 }

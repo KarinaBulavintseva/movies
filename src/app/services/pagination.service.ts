@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MoviesService } from '../services/movies.service';
+import { MoviesService } from './movies.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,14 +10,14 @@ export class PaginationService {
   toNextPage() {
     if (this.moviesService.currentPage < this.moviesService.maxNumberOfPages) {
       this.moviesService.currentPage++;
-      this.moviesService.onSend();
+      this.moviesService.emitValuesChanged();
     }
   }
 
   toPreviousPage() {
     if (this.moviesService.currentPage > this.moviesService.initialPageNumber) {
       this.moviesService.currentPage--;
-      this.moviesService.onSend();
+      this.moviesService.emitValuesChanged();
     }
   }
 }
