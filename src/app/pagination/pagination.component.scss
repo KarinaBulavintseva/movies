@@ -10,7 +10,16 @@
         width: 80px;
         height: 40px;
         border-radius: 20px;
-        background-color:rgb(21, 9, 33);
+        background-image:
+        linear-gradient(
+         to right top,
+         #2a0537,
+         #3b1c5e,
+         #45368a,
+         #4152b9,
+         #1271eb
+       );
+        // background-color:rgb(21, 9, 33);
         color:rgb(223, 227, 230);
     &__link{
         color:rgb(223, 227, 230);

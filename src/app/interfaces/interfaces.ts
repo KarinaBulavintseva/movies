@@ -22,6 +22,4 @@ export interface ResponseData {
   total_results: number;
 }
 
-export interface UrlProperties {
-  pageNumber?: number;
-}
+

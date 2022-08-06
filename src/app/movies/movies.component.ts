@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Movie, UrlProperties } from '../interfaces/interfaces';
-import { PaginationService } from '../pagination/pagination.service';
-import { DataStorageService } from '../shared/data-storage.service';
+import { Movie } from '../interfaces/interfaces';
+import { MoviesService } from '../services/movies.service';
+import { SearchService } from '../services/search.service';
+import { DataStorageService } from '../services/data-storage.service';
 
 @Component({
   selector: 'app-movies',
@@ -12,23 +13,26 @@ import { DataStorageService } from '../shared/data-storage.service';
 export class MoviesComponent implements OnInit, OnDestroy {
   movies: Movie[] = [];
   private subscription!: Subscription;
+  blockFilterPanel = false;
 
   constructor(
-    private storageService: DataStorageService,
-    private paginationService: PaginationService
+    private dataStorageService: DataStorageService,
+    private moviesService: MoviesService,
+    private searchService:SearchService
   ) {}
 
   ngOnInit(): void {
-    this.getMovies({});
-    this.subscription = this.paginationService.pageChanged.subscribe((res) =>
-      this.getMovies(res)
+    this.dataStorageService
+      .fetchMovies()
+      .subscribe((res) => (this.movies = res));
+    this.moviesService.valuesChanged$.subscribe((res) =>
+      this.dataStorageService
+        .fetchMovies(res)
+        .subscribe((mov) => (this.movies = mov))
     );
-  }
-
-  getMovies(urlProperties: UrlProperties) {
-    this.storageService
-      .fetchMovies(urlProperties)
-      .subscribe((mov) => (this.movies = mov));
+    this.searchService.isFilterPanel$.subscribe(
+      (res) => (this.blockFilterPanel = !res)
+    );
   }
 
   ngOnDestroy() {
