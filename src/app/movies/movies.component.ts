@@ -12,7 +12,7 @@ import { DataStorageService } from '../services/data-storage.service';
 })
 export class MoviesComponent implements OnInit, OnDestroy {
   movies: Movie[] = [];
-  private subscription!: Subscription;
+  private subscription$ = new Subscription();
   blockFilterPanel = false;
 
   constructor(
@@ -22,20 +22,22 @@ export class MoviesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.dataStorageService
+    this.subscription$.add(this.dataStorageService
       .fetchMovies()
-      .subscribe((res) => (this.movies = res));
-    this.moviesService.valuesChanged$.subscribe((res) =>
+      .subscribe((res) => (this.movies = res)));
+
+    this.subscription$.add(this.moviesService.valuesChanged$.subscribe((res) =>
       this.dataStorageService
         .fetchMovies(res)
         .subscribe((mov) => (this.movies = mov))
-    );
-    this.searchService.isFilterPanel$.subscribe(
+    ));
+    
+    this.subscription$.add(this.searchService.isFilterPanel$.subscribe(
       (res) => (this.blockFilterPanel = !res)
-    );
+    ));
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscription$.unsubscribe();
   }
 }
