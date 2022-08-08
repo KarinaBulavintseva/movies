@@ -26,7 +26,7 @@ import { FilterComponent } from './filter/filter.component';
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

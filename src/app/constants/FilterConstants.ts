@@ -9,6 +9,8 @@ export const SortOptions = [
   { value: 'vote_count.asc', title: 'Vote count(ascending)' },
 ];
 
+export const selectedOption ='popularity.desc';
+
 export const Genres = [
   { id: 28, name: 'Action' },
   { id: 12, name: 'Adventure' },
@@ -30,3 +32,5 @@ export const Genres = [
   { id: 10752, name: 'War' },
   { id: 37, name: 'Western' },
 ];
+
+

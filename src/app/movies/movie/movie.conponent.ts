@@ -10,10 +10,12 @@ import { environment } from 'src/environments/environment';
 export class MovieComponent implements OnInit {
   @Input() movie!: Movie;
 
-  urlImage = ''
+  urlImage = '';
 
-  ngOnInit(){
+  ngOnInit() {
     this.urlImage = environment.urlImage + this.movie.poster_path;
+    if (!this.movie.backdrop_path || this.movie.backdrop_path === null) {
+      this.urlImage = 'assets/images/no_image.jpg';
+    }
   }
-
 }

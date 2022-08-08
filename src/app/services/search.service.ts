@@ -8,15 +8,15 @@ import { MoviesService } from './movies.service';
 export class SearchService {
   constructor(private moviesService: MoviesService) {}
 
-  isFilterPanel$ = new Subject<boolean>();
+  isFilterPanelToggle$ = new Subject<boolean>();
 
   searchMovies(inputText: string) {
     this.moviesService.recieveSearchQueries(inputText);
 
     if (inputText === '') {
-      this.isFilterPanel$.next(true);
+      this.isFilterPanelToggle$.next(true);
     } else {
-      this.isFilterPanel$.next(false);
+      this.isFilterPanelToggle$.next(false);
     }
   }
 }

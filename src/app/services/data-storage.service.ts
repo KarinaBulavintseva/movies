@@ -5,10 +5,11 @@ import { environment } from 'src/environments/environment';
 import { ResponseData } from '../interfaces/interfaces';
 import { SortOptions } from '../constants/FilterConstants';
 import { Filter } from '../interfaces/Filter';
+import { MoviesService } from './movies.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private moviesServise: MoviesService) {}
 
   fetchMovies(objOfProperties?: Filter) {
     let url = '';
@@ -30,6 +31,7 @@ export class DataStorageService {
 
     return this.http.get<ResponseData>(url).pipe(
       map((responseData) => {
+        this.moviesServise.defineTotalMoviesPages(responseData.total_pages);
         return responseData.results;
       })
     );

@@ -8,22 +8,19 @@ import { SearchService } from '../services/search.service';
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent implements OnInit {
-
   genres = this.filterService.genreList;
   options = this.filterService.optionsList;
 
-  constructor(
-    private filterService: FilterService,
-  ) {}
+  constructor(private filterService: FilterService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onChangeOption(event: Event) {
     this.filterService.selectNewOption(event);
   }
 
-  onPickGenre(event: Event) {
-    this.filterService.filterGenres(event);
+  onPickGenre(event: any) {
+    let checkedValue = event.target.value;
+    this.filterService.filterGenres(checkedValue);
   }
 }
