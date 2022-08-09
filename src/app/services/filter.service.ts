@@ -30,14 +30,6 @@ export class FilterService {
 
     this.notifyChangesOfParams();
     
-    // if ((<HTMLInputElement>event.target).checked) {
-    //   this.idsOfPickedGenres.push((<HTMLInputElement>event.target).value);
-    // } else {
-    //   this.idsOfPickedGenres = this.idsOfPickedGenres.filter(
-    //     (item) => item !== (<HTMLInputElement>event.target).value
-    //   );
-    // }
-    // this.notifyChangesOfParams();
   }
 
   notifyChangesOfParams() {
