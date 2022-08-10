@@ -2,22 +2,26 @@
   &__inner {
     display: flex;
     flex-direction: column;
-    max-width: 200px;
+    width: 200px;
     cursor: pointer;
   }
   &__img-box {
     height: 300px;
+    background-color: rgb(40, 39, 37);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
   }
   &__image {
     height: 100%;
     max-width: 100%;
-    transition: all 0.3s ease;
   }
 
-  &__image:hover {
+  &__img-box:hover {
     transform: scale(1.05);
   }
   &__description {
     padding-top: 10px;
   }
 }
+

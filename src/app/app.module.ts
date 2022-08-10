@@ -11,6 +11,8 @@ import { MoviesComponent } from './movies/movies.component';
 import { MovieComponent } from './movies/movie/movie.conponent';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FilterComponent } from './filter/filter.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,15 @@ import { FilterComponent } from './filter/filter.component';
     MovieComponent,
     PaginationComponent,
     FilterComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

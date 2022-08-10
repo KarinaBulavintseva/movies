@@ -4,6 +4,7 @@ import { Movie } from '../interfaces/interfaces';
 import { MoviesService } from '../services/movies.service';
 import { SearchService } from '../services/search.service';
 import { DataStorageService } from '../services/data-storage.service';
+import { Filter } from '../interfaces/Filter';
 
 @Component({
   selector: 'app-movies',
@@ -13,28 +14,34 @@ import { DataStorageService } from '../services/data-storage.service';
 export class MoviesComponent implements OnInit, OnDestroy {
   movies: Movie[] = [];
   private subscription$ = new Subscription();
-  blockFilterPanel = false;
+  isFilterPanelVisible = true;
 
   constructor(
     private dataStorageService: DataStorageService,
     private moviesService: MoviesService,
-    private searchService:SearchService
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
-    this.subscription$.add(this.dataStorageService
-      .fetchMovies()
-      .subscribe((res) => (this.movies = res)));
+    this.subscription$.add(this.subscribeOnRecievedData());
 
-    this.subscription$.add(this.moviesService.valuesChanged$.subscribe((res) =>
-      this.dataStorageService
-        .fetchMovies(res)
-        .subscribe((mov) => (this.movies = mov))
-    ));
-    
-    this.subscription$.add(this.searchService.isFilterPanel$.subscribe(
-      (res) => (this.blockFilterPanel = !res)
-    ));
+    this.subscription$.add(
+      this.moviesService.valuesChanged$.subscribe((res) =>
+        this.subscribeOnRecievedData(res)
+      )
+    );
+
+    this.subscription$.add(
+      this.searchService.isFilterPanelToggle$.subscribe(
+        (res) => (this.isFilterPanelVisible = res)
+      )
+    );
+  }
+
+  subscribeOnRecievedData(propertiesObj?: Filter) {
+    this.dataStorageService
+      .fetchMovies(propertiesObj)
+      .subscribe((mov) => (this.movies = mov));
   }
 
   ngOnDestroy() {

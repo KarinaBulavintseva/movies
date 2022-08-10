@@ -8,7 +8,6 @@
 
     <nav class="nav">
       <div class="nav__box">
-
         <div class="nav__search">
           <input
             class="nav__input"
@@ -16,18 +15,20 @@
             placeholder="Search for a movie"
             [(ngModel)]="inputText"
           />
-          <button class="nav__button-search" (click)="onSearch()"><fa-icon [icon]="faMagnifyingGlass"></fa-icon></button>
+          <button class="nav__button-search" (click)="onSearch()">
+            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+          </button>
         </div>
 
         <ul class="nav__main-menu">
           <li class="nav__item"><a class="nav__item-link">Movies</a></li>
           <li class="nav__item"><a class="nav__item-link">Favourite</a></li>
+          <li class="nav__item"><a class="nav__item-link">Log in</a></li>
         </ul>
 
-        <div class="nav__account">
-          <a href="#" class="nav__account-link">Log in </a>
-        </div>
-
+        <!-- <div class="nav__account"> -->
+        <!-- <a href="#" class="nav__account-link">Log in </a> -->
+        <!-- </div> -->
       </div>
     </nav>
   </div>

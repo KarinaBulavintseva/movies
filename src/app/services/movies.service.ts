@@ -8,7 +8,7 @@ import { FilterService } from './filter.service';
 })
 export class MoviesService {
   currentPage = 1;
-  maxNumberOfPages = 100;
+  maxNumberOfPages = 500;
   initialPageNumber = 1;
 
   valuesChanged$ = new Subject<Filter>();
@@ -18,6 +18,7 @@ export class MoviesService {
     genre: [''],
     page: this.currentPage,
     searchText: '',
+    maxNumberOfPages: this.maxNumberOfPages,
   };
 
   constructor() {}
@@ -38,5 +39,14 @@ export class MoviesService {
   emitValuesChanged() {
     this.filterObj.page = this.currentPage;
     this.valuesChanged$.next(this.filterObj);
+  }
+
+  defineTotalMoviesPages(totalPageNumber: number) {
+    if (totalPageNumber >= 500) {
+      this.maxNumberOfPages = 500;
+    } else {
+      this.maxNumberOfPages = totalPageNumber;
+    }
+    this.filterObj.maxNumberOfPages = this.maxNumberOfPages;
   }
 }

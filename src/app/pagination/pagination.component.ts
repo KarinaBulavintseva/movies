@@ -8,7 +8,8 @@ import { PaginationService } from '../services/pagination.service';
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
-  numberOfPage: number = 1;
+  numberOfPage = 1;
+  maxPageNumber = 500;
 
   constructor(
     private paginationService: PaginationService,
@@ -17,9 +18,8 @@ export class PaginationComponent implements OnInit {
 
   ngOnInit(): void {
     this.moviesService.valuesChanged$.subscribe((res) => {
-      if (res.page) {
-        this.numberOfPage = res.page;
-      }
+      this.numberOfPage = res.page;
+      this.maxPageNumber = res.maxNumberOfPages;
     });
   }
 
