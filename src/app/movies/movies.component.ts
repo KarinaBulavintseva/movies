@@ -26,7 +26,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.subscription$.add(this.subscribeOnRecievedData());
 
     this.subscription$.add(
-      this.moviesService.valuesChanged$.subscribe((res) =>
+      this.moviesService.filterValuesChanged$.subscribe((res) =>
         this.subscribeOnRecievedData(res)
       )
     );

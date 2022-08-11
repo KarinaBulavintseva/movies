@@ -1,31 +1,6 @@
-.pagination {
+:host {
+  padding: 20px;
+  width: 100%;
   display: flex;
   justify-content: center;
-  gap: 40px;
-  padding: 5% 0 5% 0;
-  &__page-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80px;
-    height: 40px;
-    border-radius: 20px;
-    background-image: linear-gradient(
-      to right top,
-      #2a0537,
-      #3b1c5e,
-      #45368a,
-      #4152b9,
-      #1271eb
-    );
-    color: rgb(223, 227, 230);
-    &__link {
-      color: rgb(223, 227, 230);
-    }
-  }
-}
-
-:host {
-  width: 100%;
-  border: 2px solid blue;
 }

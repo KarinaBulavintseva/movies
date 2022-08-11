@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterService } from '../services/filter.service';
-import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-filter',
@@ -19,8 +18,7 @@ export class FilterComponent implements OnInit {
     this.filterService.selectNewOption(event);
   }
 
-  onPickGenre(event: any) {
-    let checkedValue = event.target.value;
+  onPickGenre(checkedValue: string) {
     this.filterService.filterGenres(checkedValue);
   }
 }

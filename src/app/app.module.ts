@@ -13,6 +13,8 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { FilterComponent } from './filter/filter.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './modal/modal.component';
+import { ObjectValuesToStringPipe } from './pipes/object-values-to-string.pipe';
+import { MinutesToHours } from './pipes/minutes-to-hours.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ModalComponent } from './modal/modal.component';
     PaginationComponent,
     FilterComponent,
     ModalComponent,
+    ObjectValuesToStringPipe,
+    MinutesToHours
   ],
   imports: [
     BrowserModule,
