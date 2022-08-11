@@ -1,52 +1,57 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Filter } from '../interfaces/Filter';
-import { FilterService } from './filter.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
   currentPage = 1;
-  maxNumberOfPages = 500;
   initialPageNumber = 1;
 
-  valuesChanged$ = new Subject<Filter>();
+  filterValuesChanged$ = new Subject<Filter>();
+  pageAndItemsNumberChanged$ = new Subject<{
+    page: number;
+    elementsNubmer: number;
+  }>();
 
-  filterObj: Filter = {
+  filterObject: Filter = {
     option: '',
     genre: [''],
     page: this.currentPage,
     searchText: '',
-    maxNumberOfPages: this.maxNumberOfPages,
   };
 
   constructor() {}
 
   recieveChangesOfParams(selectedValue: string, selectedGenres: Array<string>) {
     this.currentPage = this.initialPageNumber;
-    this.filterObj.option = selectedValue;
-    this.filterObj.genre = selectedGenres;
-    this.emitValuesChanged();
+    this.filterObject.option = selectedValue;
+    this.filterObject.genre = selectedGenres;
+    this.emitFilterValuesChanged();
   }
 
   recieveSearchQueries(text: string) {
     this.currentPage = this.initialPageNumber;
-    this.filterObj.searchText = text;
-    this.emitValuesChanged();
+    this.filterObject.searchText = text;
+    this.filterObject.genre = [''];
+    this.emitFilterValuesChanged();
   }
 
-  emitValuesChanged() {
-    this.filterObj.page = this.currentPage;
-    this.valuesChanged$.next(this.filterObj);
+  emitFilterValuesChanged() {
+    this.filterObject.page = this.currentPage;
+    this.filterValuesChanged$.next(this.filterObject);
   }
 
-  defineTotalMoviesPages(totalPageNumber: number) {
-    if (totalPageNumber >= 500) {
-      this.maxNumberOfPages = 500;
-    } else {
-      this.maxNumberOfPages = totalPageNumber;
-    }
-    this.filterObj.maxNumberOfPages = this.maxNumberOfPages;
+  emitPageChanging(page: number) {
+    this.currentPage = page;
+    this.emitFilterValuesChanged();
+  }
+
+  emitChangingNumberOfMovies(elementsNumber: number) {
+    this.pageAndItemsNumberChanged$.next({
+      page: this.currentPage,
+      elementsNubmer: elementsNumber,
+    });
   }
 }

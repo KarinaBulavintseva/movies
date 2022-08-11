@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MoviesService } from '../services/movies.service';
 import { PaginationService } from '../services/pagination.service';
+import { PaginationOptions } from '../constants/PaginationOptions';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnDestroy {
+  collectionSize = this.paginationService.currentNumberOfMovies;
+  pageSize = PaginationOptions.PAGE_SIZE;
+  maxSize = PaginationOptions.MAX_SIZE;
   numberOfPage = 1;
-  maxPageNumber = 500;
+  subscription = new Subscription();
 
   constructor(
     private paginationService: PaginationService,
@@ -17,17 +22,19 @@ export class PaginationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.moviesService.valuesChanged$.subscribe((res) => {
-      this.numberOfPage = res.page;
-      this.maxPageNumber = res.maxNumberOfPages;
-    });
+    this.subscription.add(
+      this.moviesService.pageAndItemsNumberChanged$.subscribe((changedData) => {
+        this.collectionSize = changedData.elementsNubmer;
+        this.numberOfPage = changedData.page;
+      })
+    );
   }
 
-  onNextPage() {
-    this.paginationService.toNextPage();
+  changePage() {
+    this.paginationService.changePage(this.numberOfPage);
   }
 
-  onPreviousPage() {
-    this.paginationService.toPreviousPage();
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

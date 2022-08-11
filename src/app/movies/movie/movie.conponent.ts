@@ -14,19 +14,19 @@ export class MovieComponent implements OnInit {
 
   urlImage = '';
 
-  constructor(private ngvModal: NgbModal) {}
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit() {
-    this.urlImage = environment.urlImage + this.movie.poster_path;
-    if (!this.movie.backdrop_path || this.movie.backdrop_path === null) {
+    let definedUrl = this.movie.poster_path || this.movie.backdrop_path;
+    if (definedUrl) {
+      this.urlImage = environment.urlImage + definedUrl;
+    } else {
       this.urlImage = 'assets/images/no_image.jpg';
     }
   }
 
-  openModal(movie: any) {
-    const modalRef = this.ngvModal.open(ModalComponent, {
-      size: 'lg'
-    });
-    modalRef.componentInstance.movie = movie;
+  openModal() {
+    const modalRef = this.modalService.open(ModalComponent, { size: 'lg' });
+    modalRef.componentInstance.id = this.movie.id;
   }
 }

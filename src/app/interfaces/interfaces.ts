@@ -22,4 +22,58 @@ export interface ResponseData {
   total_results: number;
 }
 
+export interface MovieDetails {
+  backdrop_path: string;
+  budget: number;
+  genres: Array<MovieGenres>;
+  homepage: string;
+  overview: string;
+  poster_path: string;
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  status: string;
+  tagline: string;
+  title: string;
+  vote_average: number;
+  adult?: boolean;
+  belongs_to_collection?: Array<Collection>;
+  original_language?: string;
+  id?: number;
+  imdb_id?: number;
+  original_title?: string;
+  popularity?: number;
+  production_companies?: Array<ProductionCompanies>;
+  production_countries?: Array<ProductionCountries>;
+  spoken_languages?: Array<SpokenLanguage>;
+  video?: boolean;
+  vote_count?: number;
+}
 
+interface Collection {
+  id: number;
+  name: string;
+  poster_path: string;
+}
+
+interface MovieGenres {
+  id: number;
+  name: string;
+}
+
+interface ProductionCompanies {
+  id: number;
+  logo_path: string;
+  name: string;
+}
+
+interface ProductionCountries {
+  iso_3166_1: string;
+  name: string;
+}
+
+interface SpokenLanguage {
+  english_name: string;
+  iso_639_1: string;
+  name: string;
+}

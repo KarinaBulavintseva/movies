@@ -3,5 +3,5 @@ export interface Filter {
   genre: Array<string>;
   page: number;
   searchText: string;
-  maxNumberOfPages:number
+
 }

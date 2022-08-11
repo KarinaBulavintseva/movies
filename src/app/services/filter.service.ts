@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Genres, selectedOption, SortOptions } from '../constants/FilterConstants';
+import {
+  Genres,
+  selectedOption,
+  SortOptions,
+} from '../constants/FilterConstants';
 import { MoviesService } from './movies.service';
 
 @Injectable({
@@ -18,18 +22,18 @@ export class FilterService {
     this.notifyChangesOfParams();
   }
 
-  filterGenres(checkedValue:string) {
+  filterGenres(checkedValue: string) {
     let isValueExist = this.idsOfPickedGenres.includes(checkedValue);
-    
-    if(isValueExist){
+
+    if (isValueExist) {
       this.idsOfPickedGenres = this.idsOfPickedGenres.filter(
-            (item) => item !==checkedValue);
-    }else{
-      this.idsOfPickedGenres.push(checkedValue)
+        (item) => item !== checkedValue
+      );
+    } else {
+      this.idsOfPickedGenres.push(checkedValue);
     }
 
     this.notifyChangesOfParams();
-    
   }
 
   notifyChangesOfParams() {

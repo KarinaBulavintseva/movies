@@ -1,24 +1,68 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { MovieDetails } from '../interfaces/interfaces';
+import { DataStorageService } from '../services/data-storage.service';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnInit {
-  faXMark = faXmark;
-  @Input() movie: any = [];
+export class ModalComponent implements OnInit, OnDestroy {
+  @Input() id!: number;
   urlImage = '';
-  constructor(public activeModal: NgbActiveModal) {}
+
+  movieDetailsObject: MovieDetails = {
+    title: '',
+    tagline: '',
+    runtime: 0,
+    release_date: '',
+    budget: 0,
+    revenue: 0,
+    genres: [],
+    poster_path: '',
+    backdrop_path: '',
+    overview: '',
+    homepage: '',
+    status: '',
+    vote_average: 0,
+  };
+
+  private subscription$ = new Subscription();
+
+  constructor(
+    public activeModal: NgbActiveModal,
+    private dataStorageService: DataStorageService
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.movie);
-    this.urlImage = environment.urlImage + this.movie.poster_path;
-    if (!this.movie.backdrop_path || this.movie.backdrop_path === null) {
+    this.subscribeOnMovieData();
+  }
+
+  subscribeOnMovieData() {
+    this.subscription$.add(
+      this.dataStorageService
+        .getMovieDetailsById(this.id)
+        .subscribe((response) => {
+          console.log(response);
+          this.movieDetailsObject = response;
+          this.defineImageUrlPath(this.movieDetailsObject);
+        })
+    );
+  }
+
+  defineImageUrlPath(movieObject: MovieDetails) {
+    let definedUrl = movieObject.poster_path || movieObject.backdrop_path;
+    if (definedUrl) {
+      this.urlImage = environment.urlImage + definedUrl;
+    } else {
       this.urlImage = 'assets/images/no_image.jpg';
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 }

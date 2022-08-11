@@ -1,63 +1,34 @@
-<!-- <div class="filter">
-  <div class="filter-panel">
-    <div class="filter-panel__inner">
+<div class="filter-panel">
+  <div class="filter-panel__inner">
+    <div class="filter-panel__filter">
       <p class="filter-panel__title">Sort by</p>
-      <div class="filter-panel__select-options">
-        <select class="filter-panel__select" (change)="onChangeOption($event)">
-          <option
-            class="filter-panel__option"
-            *ngFor="let option of options"
-            [value]="option.value"
-          >
-            {{ option.title }}
-          </option>
-        </select>
-      </div>
-
-      <p>Genres</p>
-      <div class="filter-panel__select-genres">
-        <label class="check option" *ngFor="let genre of genres">
+      <select
+        class="filter-panel__select-filter"
+        (change)="onChangeOption($event)"
+      >
+        <option
+          class="filter-panel__option"
+          *ngFor="let option of options"
+          [value]="option.value"
+        >
+          {{ option.title }}
+        </option>
+      </select>
+    </div>
+    <div class="filter-panel__filter">
+      <p class="filter-panel__title">Genres</p>
+      <div class="filter-panel__checkbox-filter">
+        <label class="filter-panel__label check" *ngFor="let genre of genres">
           <input
-            class="check__input"
+            #checked
+            class="filter-panel__checkbox"
             type="checkbox"
             [value]="genre.id"
-            (change)="onPickGenre($event)"
-          />
+            (change)="onPickGenre(checked.value)"
+          /><span class="filter-panel__box"></span>
           {{ genre.name }}
         </label>
       </div>
     </div>
   </div>
-</div> -->
-
-
-  <div class="filter-panel">
-    <div class="filter-panel__inner">
-      <div class="filter-panel__filter">
-        <p class="filter-panel__title">Sort by</p>
-        <select class="filter-panel__select-filter" (change)="onChangeOption($event)">
-          <option
-            class="filter-panel__option"
-            *ngFor="let option of options"
-            [value]="option.value">
-            {{ option.title }}
-          </option>
-        </select> 
-      </div>
-      <div class="filter-panel__filter">
-        <p class="filter-panel__title">Genres</p>
-        <div class="filter-panel__checkbox-filter">
-          <label class="filter-panel__label check" *ngFor="let genre of genres">
-            <input
-              class="filter-panel__checkbox"
-              type="checkbox"
-              [value]="genre.id"
-              (change)="onPickGenre($event)"
-            /><span class="filter-panel__box"></span>
-            {{ genre.name }}
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
-
+</div>

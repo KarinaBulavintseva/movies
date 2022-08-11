@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { ResponseData } from '../interfaces/interfaces';
+import { MovieDetails, ResponseData } from '../interfaces/interfaces';
 import { SortOptions } from '../constants/FilterConstants';
 import { Filter } from '../interfaces/Filter';
-import { MoviesService } from './movies.service';
+import { PaginationService } from './pagination.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
-  constructor(private http: HttpClient, private moviesServise: MoviesService) {}
+  constructor(
+    private http: HttpClient,
+    private paginationService: PaginationService
+  ) {}
 
   fetchMovies(objOfProperties?: Filter) {
     let url = '';
@@ -31,9 +34,23 @@ export class DataStorageService {
 
     return this.http.get<ResponseData>(url).pipe(
       map((responseData) => {
-        this.moviesServise.defineTotalMoviesPages(responseData.total_pages);
+        this.paginationService.defineTotalMoviesNumber(
+          responseData.total_results
+        );
         return responseData.results;
       })
     );
+  }
+
+  getMovieDetailsById(id: number) {
+    return this.http
+      .get<MovieDetails>(
+        `${environment.urlMoviesDetails}${id}?api_key=a3f404e23cd6eeaf1c56dada4eac5aa2&language=en-US`
+      )
+      .pipe(
+        map((responseData) => {
+          return responseData;
+        })
+      );
   }
 }
