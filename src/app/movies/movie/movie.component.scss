@@ -2,12 +2,11 @@
   &__inner {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 190px;
     cursor: pointer;
   }
   &__img-box {
-    height: 300px;
-    background-color: rgb(40, 39, 37);
+    height: 280px;
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;

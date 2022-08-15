@@ -2,33 +2,22 @@
   <div class="header__inner container">
     <div class="logo">
       <a href="#" class="logo__link">
-        <img src="assets/images/logo.png" width="45px" alt="" />
+        <img src="assets/images/logo.png" width="40px" alt="" />
       </a>
     </div>
 
     <nav class="nav">
       <div class="nav__box">
-        <div class="nav__search">
-          <input
-            class="nav__input"
-            type="text"
-            placeholder="Search for a movie"
-            [(ngModel)]="inputText"
-          />
-          <button class="nav__button-search" (click)="onSearch()">
-            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-          </button>
-        </div>
-
         <ul class="nav__main-menu">
-          <li class="nav__item"><a class="nav__item-link">Movies</a></li>
-          <li class="nav__item"><a class="nav__item-link">Favourite</a></li>
+          <li class="nav__item">
+            <a routerLink="/" class="nav__item-link">Movies</a>
+          </li>
+          <li class="nav__item">
+            <a routerLink="/favourite" class="nav__item-link">Favourite</a>
+          </li>
           <li class="nav__item"><a class="nav__item-link">Log in</a></li>
+          <li class="nav__item"><a class="nav__item-link">Sing up</a></li>
         </ul>
-
-        <!-- <div class="nav__account"> -->
-        <!-- <a href="#" class="nav__account-link">Log in </a> -->
-        <!-- </div> -->
       </div>
     </nav>
   </div>

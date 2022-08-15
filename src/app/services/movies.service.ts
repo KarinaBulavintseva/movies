@@ -12,7 +12,7 @@ export class MoviesService {
   filterValuesChanged$ = new Subject<Filter>();
   pageAndItemsNumberChanged$ = new Subject<{
     page: number;
-    elementsNubmer: number;
+    elementsNumber: number;
   }>();
 
   filterObject: Filter = {
@@ -51,7 +51,7 @@ export class MoviesService {
   emitChangingNumberOfMovies(elementsNumber: number) {
     this.pageAndItemsNumberChanged$.next({
       page: this.currentPage,
-      elementsNubmer: elementsNumber,
+      elementsNumber: elementsNumber,
     });
   }
 }

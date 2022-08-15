@@ -1,0 +1,14 @@
+.favourite-movies {
+  &__inner {
+    padding-top: 10%;
+  }
+}
+
+.cards-box {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px 10px;
+}

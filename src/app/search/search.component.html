@@ -1,0 +1,13 @@
+<div class="search">
+  <div class="search__inner">
+    <input
+      class="search__input"
+      type="text"
+      placeholder="Search for a movie"
+      [(ngModel)]="inputText"
+    />
+    <button class="search__button" (click)="onSearch()">
+      <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+    </button>
+  </div>
+</div>

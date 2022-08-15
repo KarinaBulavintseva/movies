@@ -73,3 +73,20 @@ input {
   border-radius: 12px;
   overflow: hidden;
 }
+
+ngb-pagination .page-link {
+  font-size: 1.2rem;
+  border-radius: 5px;
+  color: #032541;
+  border: none;
+}
+
+ngb-pagination .page-item.active .page-link {
+  background-color: #032541;
+  color: #e4e4e6;
+}
+
+select > option{
+  font-family:"Montserrat", sans-serif;
+}
+

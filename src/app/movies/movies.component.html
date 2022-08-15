@@ -1,9 +1,17 @@
-<div class="container">
+<!-- <div class="container"> -->
   <section class="section section-movies">
-    <app-filter *ngIf="isFilterPanelVisible"></app-filter>
+    <div class="search">
+      <app-search></app-search>
+    </div>
+    <div class="container">
+    <div class ="content">
+      <app-filter *ngIf="isFilterPanelVisible"></app-filter>
+
     <div class="cards-box">
       <app-movie *ngFor="let movie of movies" [movie]="movie"> </app-movie>
       <app-pagination></app-pagination>
     </div>
+    </div>
+    </div>
   </section>
-</div>
+<!-- </div> -->

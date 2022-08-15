@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Movie } from '../../interfaces/interfaces';
+import { Movie, MovieDetails } from '../../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/modal/modal.component';
@@ -10,7 +10,7 @@ import { ModalComponent } from 'src/app/modal/modal.component';
   styleUrls: ['./movie.component.scss'],
 })
 export class MovieComponent implements OnInit {
-  @Input() movie!: Movie;
+  @Input() movie!: Movie | MovieDetails;
 
   urlImage = '';
 

@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MovieDetails } from '../interfaces/interfaces';
 import { DataStorageService } from '../services/data-storage.service';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FavouriteService } from '../services/favourite.service';
 
 @Component({
   selector: 'app-modal',
@@ -11,8 +13,11 @@ import { DataStorageService } from '../services/data-storage.service';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit, OnDestroy {
+  faHeart = faHeart;
   @Input() id!: number;
   urlImage = '';
+
+  isHeartClicked = false;
 
   movieDetailsObject: MovieDetails = {
     title: '',
@@ -34,7 +39,8 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private favouriteService: FavouriteService
   ) {}
 
   ngOnInit(): void {
@@ -46,9 +52,9 @@ export class ModalComponent implements OnInit, OnDestroy {
       this.dataStorageService
         .getMovieDetailsById(this.id)
         .subscribe((response) => {
-          console.log(response);
           this.movieDetailsObject = response;
           this.defineImageUrlPath(this.movieDetailsObject);
+          this.checkIfMovieIsFavourite();
         })
     );
   }
@@ -60,6 +66,20 @@ export class ModalComponent implements OnInit, OnDestroy {
     } else {
       this.urlImage = 'assets/images/no_image.jpg';
     }
+  }
+
+  onIconClick() {
+    this.isHeartClicked = !this.isHeartClicked;
+    this.favouriteService.removeOrAddMovie(
+      this.isHeartClicked,
+      this.movieDetailsObject
+    );
+  }
+
+  checkIfMovieIsFavourite() {
+    this.isHeartClicked = this.favouriteService.checkIfMovieIsInLocalStorage(
+      this.movieDetailsObject
+    ); 
   }
 
   ngOnDestroy(): void {

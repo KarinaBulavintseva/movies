@@ -9,31 +9,38 @@
       </div>
       <div class="modal-window__text-description">
         <p class="modal-window__movie-name">
-          {{ movieDetailsObject.title }}
-          <span
-            *ngIf="movieDetailsObject.release_date"
-            class="modal-window__release-year"
-            >{{ movieDetailsObject.release_date | date: "y" }}</span
-          >
+          {{ movieDetailsObject.title
+          }}<fa-icon
+            [ngClass]="{ clicked: isHeartClicked }"
+            class="modal-window__icon"
+            [icon]="faHeart"
+            (click)="onIconClick()"
+          ></fa-icon>
         </p>
         <p class="modal-window__movie-tagline">
           {{ movieDetailsObject.tagline }}
         </p>
+        <p class="modal-window__status" *ngIf="movieDetailsObject.status">
+          Status: {{ movieDetailsObject.status }}
+        </p>
+
         <p class="modal-window__movie-facts">
-          <span class="modal-window__release">{{
-            movieDetailsObject.release_date | date
-          }}</span>
-          <span class="modal-window__status"
-            >({{ movieDetailsObject.status }})</span
-          >
+          <span class="modal-window__release"
+            >{{ movieDetailsObject.release_date | date }}
+          </span>
           <span
             *ngIf="movieDetailsObject.runtime"
             class="modal-window__runtime"
             >{{ movieDetailsObject.runtime | minutesToHours }}</span
           >
         </p>
+
         <p class="modal-window__genres">
-          {{ movieDetailsObject.genres | valuesToString: "name" }}
+          <span
+            class="modal-window__genre"
+            *ngFor="let genre of movieDetailsObject.genres"
+            >{{ genre.name }}</span
+          >
         </p>
         <p class="modal-window__budget" *ngIf="movieDetailsObject.budget">
           Budget:
@@ -43,10 +50,15 @@
           Revenue:
           {{ movieDetailsObject.revenue | currency: "USD":"symbol":"1.0-0" }}
         </p>
+
         <p class="modal-window__overview">{{ movieDetailsObject.overview }}</p>
-        <p class="modal-window__homepage" *ngIf="movieDetailsObject.homepage">
-          <a [href]="movieDetailsObject.homepage">Visit homepage</a>
-        </p>
+      </div>
+      <div class="modal-window__homepage" *ngIf="movieDetailsObject.homepage">
+        <a
+          class="modal-window__homepage-link"
+          [href]="movieDetailsObject.homepage"
+          >Visit homepage</a
+        >
       </div>
     </div>
   </div>
