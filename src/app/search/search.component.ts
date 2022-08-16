@@ -1,22 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchService } from '../services/search.service';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { DataStorageService } from '../services/data-storage.service';
+import { Movie } from '../interfaces/interfaces';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
-  faMagnifyingGlass = faMagnifyingGlass;
-  inputText = '';
+export class SearchComponent implements OnInit, OnDestroy {
+  foundMovies: Movie[] = [];
+  subscription = new Subscription();
 
-  constructor(private searchService: SearchService) { }
+  constructor(
+    private dataStorageService: DataStorageService,
+    private searchService: SearchService
+  ) {}
 
   ngOnInit(): void {
-  }
-  onSearch() {
-    this.searchService.searchMovies(this.inputText);
+    this.subscription.add(
+      this.searchService.queryChanged$.subscribe((queryParams) => {
+        this.dataStorageService
+          .getMovieByQueryParam(queryParams)
+          .subscribe((movies) => {
+            this.foundMovies = movies;
+          });
+      })
+    );
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

@@ -8,6 +8,18 @@
 
     <nav class="nav">
       <div class="nav__box">
+        <div class="nav__search">
+          <input
+            class="nav__input"
+            type="text"
+            placeholder="Search for a movie"
+            [(ngModel)]="inputText"
+          />
+          <button class="nav__button-search" (click)="onSearch()">
+            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+          </button>
+        </div>
+
         <ul class="nav__main-menu">
           <li class="nav__item">
             <a routerLink="/" class="nav__item-link">Movies</a>

@@ -32,7 +32,6 @@ export class FilterService {
     } else {
       this.idsOfPickedGenres.push(checkedValue);
     }
-
     this.notifyChangesOfParams();
   }
 
@@ -41,5 +40,9 @@ export class FilterService {
       this.selectedValue,
       this.idsOfPickedGenres
     );
+  }
+
+  clearGenres() {
+    this.idsOfPickedGenres = [];
   }
 }

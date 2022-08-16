@@ -25,13 +25,14 @@ export class PaginationComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.moviesService.pageAndItemsNumberChanged$.subscribe((changedData) => {
         this.collectionSize = changedData.elementsNumber;
-        this.numberOfPage = changedData.page;
+        this.numberOfPage = changedData.pageNumber;
       })
     );
+    this.changePage();
   }
 
   changePage() {
-    this.paginationService.changePage(this.numberOfPage);
+    this.paginationService.changePageNumber(this.numberOfPage);
   }
 
   ngOnDestroy(): void {

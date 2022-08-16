@@ -40,13 +40,13 @@
     line-height: 1.2;
   }
 
-  &__icon{
-    cursor:pointer;
-    margin-left:3%;
+  &__icon {
+    cursor: pointer;
+    margin-left: 3%;
     transition: all 0.3s ease 0s;
   }
-  &__icon:hover{
-    color:red;
+  &__icon:hover {
+    color: red;
   }
   &__movie-facts {
     display: flex;
@@ -62,11 +62,11 @@
     vertical-align: middle;
     margin: 0px 5px 0 5px;
   }
-  &__genre{
+  &__genre {
     padding-right: 5px;
   }
-  &__genre:not(:last-of-type)::after{
-    content:','
+  &__genre:not(:last-of-type)::after {
+    content: ",";
   }
   &__overview {
     line-height: 1.5;
@@ -92,6 +92,6 @@
   }
 }
 
-.clicked{
-  color:red;
+.clicked {
+  color: red;
 }

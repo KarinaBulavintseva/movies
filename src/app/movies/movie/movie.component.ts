@@ -18,11 +18,9 @@ export class MovieComponent implements OnInit {
 
   ngOnInit() {
     let definedUrl = this.movie.poster_path || this.movie.backdrop_path;
-    if (definedUrl) {
-      this.urlImage = environment.urlImage + definedUrl;
-    } else {
-      this.urlImage = 'assets/images/no_image.jpg';
-    }
+    definedUrl
+      ? (this.urlImage = environment.urlImage + definedUrl)
+      : (this.urlImage = 'assets/images/no_image.jpg');
   }
 
   openModal() {

@@ -6,7 +6,7 @@ import { MovieDetails } from '../interfaces/interfaces';
   providedIn: 'root',
 })
 export class FavouriteService {
-  favoriteMovies$ = new Subject<MovieDetails[]>();
+  favouriteMoviesChanged$ = new Subject<MovieDetails[]>();
 
   constructor() {}
 
@@ -37,7 +37,7 @@ export class FavouriteService {
         favouriteMovies.splice(index, 1);
       }
     }
-    this.favoriteMovies$.next(favouriteMovies);
+    this.favouriteMoviesChanged$.next(favouriteMovies);
 
     localStorage.setItem(`favourite`, JSON.stringify(favouriteMovies));
   }

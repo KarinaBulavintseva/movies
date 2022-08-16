@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Movie } from '../interfaces/interfaces';
 import { MoviesService } from '../services/movies.service';
-import { SearchService } from '../services/search.service';
 import { DataStorageService } from '../services/data-storage.service';
 import { Filter } from '../interfaces/Filter';
 
@@ -13,27 +12,19 @@ import { Filter } from '../interfaces/Filter';
 })
 export class MoviesComponent implements OnInit, OnDestroy {
   movies: Movie[] = [];
-  private subscription$ = new Subscription();
-  isFilterPanelVisible = true;
+  private subscription = new Subscription();
 
   constructor(
     private dataStorageService: DataStorageService,
-    private moviesService: MoviesService,
-    private searchService: SearchService
+    private moviesService: MoviesService
   ) {}
 
   ngOnInit(): void {
-    this.subscription$.add(this.subscribeOnRecievedData());
+    this.subscription.add(this.subscribeOnRecievedData());
 
-    this.subscription$.add(
-      this.moviesService.filterValuesChanged$.subscribe((res) =>
-        this.subscribeOnRecievedData(res)
-      )
-    );
-
-    this.subscription$.add(
-      this.searchService.isFilterPanelToggle$.subscribe(
-        (res) => (this.isFilterPanelVisible = res)
+    this.subscription.add(
+      this.moviesService.filterValuesChanged$.subscribe((changedValues) =>
+        this.subscribeOnRecievedData(changedValues)
       )
     );
   }
@@ -41,10 +32,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
   subscribeOnRecievedData(propertiesObj?: Filter) {
     this.dataStorageService
       .fetchMovies(propertiesObj)
-      .subscribe((mov) => (this.movies = mov));
+      .subscribe((movies) => (this.movies = movies));
   }
 
   ngOnDestroy() {
-    this.subscription$.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

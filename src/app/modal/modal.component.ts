@@ -13,10 +13,10 @@ import { FavouriteService } from '../services/favourite.service';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit, OnDestroy {
-  faHeart = faHeart;
   @Input() id!: number;
-  urlImage = '';
 
+  faHeart = faHeart;
+  urlImage = '';
   isHeartClicked = false;
 
   movieDetailsObject: MovieDetails = {
@@ -35,7 +35,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     vote_average: 0,
   };
 
-  private subscription$ = new Subscription();
+  private subscription = new Subscription();
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -48,11 +48,11 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   subscribeOnMovieData() {
-    this.subscription$.add(
+    this.subscription.add(
       this.dataStorageService
         .getMovieDetailsById(this.id)
-        .subscribe((response) => {
-          this.movieDetailsObject = response;
+        .subscribe((movieData) => {
+          this.movieDetailsObject = movieData;
           this.defineImageUrlPath(this.movieDetailsObject);
           this.checkIfMovieIsFavourite();
         })
@@ -61,11 +61,9 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   defineImageUrlPath(movieObject: MovieDetails) {
     let definedUrl = movieObject.poster_path || movieObject.backdrop_path;
-    if (definedUrl) {
-      this.urlImage = environment.urlImage + definedUrl;
-    } else {
-      this.urlImage = 'assets/images/no_image.jpg';
-    }
+    definedUrl
+      ? (this.urlImage = environment.urlImage + definedUrl)
+      : (this.urlImage = 'assets/images/no_image.jpg');
   }
 
   onIconClick() {
@@ -79,10 +77,10 @@ export class ModalComponent implements OnInit, OnDestroy {
   checkIfMovieIsFavourite() {
     this.isHeartClicked = this.favouriteService.checkIfMovieIsInLocalStorage(
       this.movieDetailsObject
-    ); 
+    );
   }
 
   ngOnDestroy(): void {
-    this.subscription$.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

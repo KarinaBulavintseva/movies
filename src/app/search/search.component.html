@@ -1,13 +1,11 @@
-<div class="search">
-  <div class="search__inner">
-    <input
-      class="search__input"
-      type="text"
-      placeholder="Search for a movie"
-      [(ngModel)]="inputText"
-    />
-    <button class="search__button" (click)="onSearch()">
-      <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-    </button>
+<div class="container">
+  <div class="search">
+    <div class="search__inner">
+      <div class="cards-box">
+        <app-movie *ngFor="let movie of foundMovies" [movie]="movie">
+        </app-movie>
+        <app-pagination></app-pagination>
+      </div>
+    </div>
   </div>
 </div>

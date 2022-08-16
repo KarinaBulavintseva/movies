@@ -1,22 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { MoviesService } from './movies.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
+  queryChanged$ = new BehaviorSubject<{ page: number; text: string }>({
+    page: 1,
+    text: '',
+  });
+
+  currentPage = 1;
+  text = '';
+
   constructor(private moviesService: MoviesService) {}
 
-  isFilterPanelToggle$ = new Subject<boolean>();
+  updatePageNumber(page: number) {
+    this.currentPage = page;
+    this.notifyQueryChanging();
+  }
 
-  searchMovies(inputText: string) {
-    this.moviesService.recieveSearchQueries(inputText);
+  updateTextForSearch(text: string) {
+    this.text = text;
+    this.notifyQueryChanging();
+  }
 
-    if (inputText === '') {
-      this.isFilterPanelToggle$.next(true);
-    } else {
-      this.isFilterPanelToggle$.next(false);
-    }
+  notifyQueryChanging() {
+    this.queryChanged$.next({ page: this.currentPage, text: this.text });
+    this.moviesService.clearFilterParams();
   }
 }
