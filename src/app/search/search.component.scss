@@ -1,0 +1,16 @@
+.search {
+  &__inner {
+    min-height: 100vh;
+    padding-top: 10%;
+    border: 2px solid red;
+  }
+}
+
+.cards-box {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px 10px;
+}

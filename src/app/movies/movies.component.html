@@ -1,6 +1,6 @@
 <div class="container">
   <section class="section section-movies">
-    <app-filter *ngIf="isFilterPanelVisible"></app-filter>
+    <app-filter></app-filter>
     <div class="cards-box">
       <app-movie *ngFor="let movie of movies" [movie]="movie"> </app-movie>
       <app-pagination></app-pagination>

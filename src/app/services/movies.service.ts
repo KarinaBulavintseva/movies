@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Filter } from '../interfaces/Filter';
 
 @Injectable({
@@ -9,18 +9,17 @@ export class MoviesService {
   currentPage = 1;
   initialPageNumber = 1;
 
-  filterValuesChanged$ = new Subject<Filter>();
   pageAndItemsNumberChanged$ = new Subject<{
-    page: number;
-    elementsNubmer: number;
+    pageNumber: number;
+    elementsNumber: number;
   }>();
 
   filterObject: Filter = {
     option: '',
     genre: [''],
     page: this.currentPage,
-    searchText: '',
   };
+  filterValuesChanged$ = new Subject<Filter>();
 
   constructor() {}
 
@@ -28,13 +27,6 @@ export class MoviesService {
     this.currentPage = this.initialPageNumber;
     this.filterObject.option = selectedValue;
     this.filterObject.genre = selectedGenres;
-    this.emitFilterValuesChanged();
-  }
-
-  recieveSearchQueries(text: string) {
-    this.currentPage = this.initialPageNumber;
-    this.filterObject.searchText = text;
-    this.filterObject.genre = [''];
     this.emitFilterValuesChanged();
   }
 
@@ -50,8 +42,13 @@ export class MoviesService {
 
   emitChangingNumberOfMovies(elementsNumber: number) {
     this.pageAndItemsNumberChanged$.next({
-      page: this.currentPage,
-      elementsNubmer: elementsNumber,
+      pageNumber: this.currentPage,
+      elementsNumber: elementsNumber,
     });
+  }
+
+  clearFilterParams() {
+    this.filterObject.genre = [''];
+    this.filterObject.option = '';
   }
 }

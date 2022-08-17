@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MovieDetails } from '../interfaces/interfaces';
 import { DataStorageService } from '../services/data-storage.service';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FavouriteService } from '../services/favourite.service';
 
 @Component({
   selector: 'app-modal',
@@ -12,7 +14,10 @@ import { DataStorageService } from '../services/data-storage.service';
 })
 export class ModalComponent implements OnInit, OnDestroy {
   @Input() id!: number;
+
+  faHeart = faHeart;
   urlImage = '';
+  isHeartClicked = false;
 
   movieDetailsObject: MovieDetails = {
     title: '',
@@ -30,11 +35,12 @@ export class ModalComponent implements OnInit, OnDestroy {
     vote_average: 0,
   };
 
-  private subscription$ = new Subscription();
+  private subscription = new Subscription();
 
   constructor(
     public activeModal: NgbActiveModal,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private favouriteService: FavouriteService
   ) {}
 
   ngOnInit(): void {
@@ -42,27 +48,39 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   subscribeOnMovieData() {
-    this.subscription$.add(
+    this.subscription.add(
       this.dataStorageService
         .getMovieDetailsById(this.id)
-        .subscribe((response) => {
-          console.log(response);
-          this.movieDetailsObject = response;
+        .subscribe((movieData) => {
+          this.movieDetailsObject = movieData;
           this.defineImageUrlPath(this.movieDetailsObject);
+          this.checkIfMovieIsFavourite();
         })
     );
   }
 
   defineImageUrlPath(movieObject: MovieDetails) {
     let definedUrl = movieObject.poster_path || movieObject.backdrop_path;
-    if (definedUrl) {
-      this.urlImage = environment.urlImage + definedUrl;
-    } else {
-      this.urlImage = 'assets/images/no_image.jpg';
-    }
+    definedUrl
+      ? (this.urlImage = environment.urlImage + definedUrl)
+      : (this.urlImage = 'assets/images/no_image.jpg');
+  }
+
+  onIconClick() {
+    this.isHeartClicked = !this.isHeartClicked;
+    this.favouriteService.removeOrAddMovie(
+      this.isHeartClicked,
+      this.movieDetailsObject
+    );
+  }
+
+  checkIfMovieIsFavourite() {
+    this.isHeartClicked = this.favouriteService.checkIfMovieIsInLocalStorage(
+      this.movieDetailsObject
+    );
   }
 
   ngOnDestroy(): void {
-    this.subscription$.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

@@ -59,7 +59,7 @@
     width: 300px;
     height: 30px;
     border-radius: 12px 0px 0px 12px;
-    background: rgba(51, 44, 52, 0.317);
+    background: rgba(106, 106, 149, 0.402);
     color: rgb(199, 205, 210);
     font-family: inherit;
     &:focus {
@@ -68,20 +68,13 @@
   }
 
   &__button-search {
-    background-image: linear-gradient(
-      to right top,
-      #2a0537,
-      #3b1c5e,
-      #45368a,
-      #4152b9,
-      #1271eb
-    );
+    background-color: aliceblue;
     height: 30px;
-    width: 45px;
+    width: 35px;
     font-size: 1.2rem;
     border-radius: 0px 12px 12px 0;
     font-family: inherit;
-    color: rgb(199, 205, 210);
+    color: rgb(11, 45, 73);
   }
 }
 

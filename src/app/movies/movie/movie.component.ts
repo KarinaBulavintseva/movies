@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Movie } from '../../interfaces/interfaces';
+import { Movie, MovieDetails } from '../../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/modal/modal.component';
@@ -10,7 +10,7 @@ import { ModalComponent } from 'src/app/modal/modal.component';
   styleUrls: ['./movie.component.scss'],
 })
 export class MovieComponent implements OnInit {
-  @Input() movie!: Movie;
+  @Input() movie!: Movie | MovieDetails;
 
   urlImage = '';
 
@@ -18,11 +18,9 @@ export class MovieComponent implements OnInit {
 
   ngOnInit() {
     let definedUrl = this.movie.poster_path || this.movie.backdrop_path;
-    if (definedUrl) {
-      this.urlImage = environment.urlImage + definedUrl;
-    } else {
-      this.urlImage = 'assets/images/no_image.jpg';
-    }
+    definedUrl
+      ? (this.urlImage = environment.urlImage + definedUrl)
+      : (this.urlImage = 'assets/images/no_image.jpg');
   }
 
   openModal() {

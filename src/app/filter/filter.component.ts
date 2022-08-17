@@ -12,7 +12,9 @@ export class FilterComponent implements OnInit {
 
   constructor(private filterService: FilterService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.filterService.clearGenres();
+  }
 
   onChangeOption(event: Event) {
     this.filterService.selectNewOption(event);

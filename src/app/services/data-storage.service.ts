@@ -16,20 +16,14 @@ export class DataStorageService {
 
   fetchMovies(objOfProperties?: Filter) {
     let url = '';
-
     if (!objOfProperties) {
       url = environment.urlMovies;
     } else {
       let option = objOfProperties.option || SortOptions[0].value;
       let page = objOfProperties.page || 1;
       let genre = objOfProperties.genre || '';
-      let search = objOfProperties.searchText || '';
 
-      if (search !== '') {
-        url = `${environment.urlSearch}${search}&page=${page}`;
-      } else {
-        url = `${environment.urlMovies}&language=en-US&sort_by=${option}&page=${page}&with_genres=${genre}`;
-      }
+      url = `${environment.urlMovies}&language=en-US&sort_by=${option}&page=${page}&with_genres=${genre}`;
     }
 
     return this.http.get<ResponseData>(url).pipe(
@@ -45,11 +39,24 @@ export class DataStorageService {
   getMovieDetailsById(id: number) {
     return this.http
       .get<MovieDetails>(
-        `${environment.urlMoviesDetails}${id}?api_key=a3f404e23cd6eeaf1c56dada4eac5aa2&language=en-US`
+        `${environment.urlMoviesDetails}${id}?api_key=${environment.apiKey}&language=en-US`
       )
       .pipe(
         map((responseData) => {
           return responseData;
+        })
+      );
+  }
+
+  getMovieByQueryParam(obj: { page: number; text: string }) {
+    return this.http
+      .get<ResponseData>(`${environment.urlSearch}${obj.text}&page=${obj.page}`)
+      .pipe(
+        map((responseData) => {
+          this.paginationService.defineTotalMoviesNumber(
+            responseData.total_results
+          );
+          return responseData.results;
         })
       );
   }
