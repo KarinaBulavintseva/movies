@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchService } from '../services/search.service';
 import { DataStorageService } from '../services/data-storage.service';
-import { Movie } from '../interfaces/interfaces';
+import { Movie, SearchParams } from '../interfaces/interfaces';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class SearchComponent implements OnInit, OnDestroy {
   foundMovies: Movie[] = [];
-  subscription = new Subscription();
+  subscription$ = new Subscription();
 
   constructor(
     private dataStorageService: DataStorageService,
@@ -19,18 +19,20 @@ export class SearchComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.searchService.queryChanged$.subscribe((queryParams) => {
-        this.dataStorageService
-          .getMovieByQueryParam(queryParams)
-          .subscribe((movies) => {
-            this.foundMovies = movies;
-          });
+    this.subscription$.add(
+      this.searchService.searchParamsChanged$.subscribe((queryParams: SearchParams) => {
+        this.subscription$.add(
+          this.dataStorageService
+            .getMoviesByQueryParams(queryParams)
+            .subscribe((movies: Movie[]) => {
+              this.foundMovies = movies;
+            })
+        );
       })
     );
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription$.unsubscribe();
   }
 }

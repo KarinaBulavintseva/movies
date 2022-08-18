@@ -16,6 +16,7 @@ import { ModalComponent } from './modal/modal.component';
 import { MinutesToHours } from './pipes/minutes-to-hours.pipe';
 import { FavouriteComponent } from './favourite/favourite.component';
 import { SearchComponent } from './search/search.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SearchComponent } from './search/search.component';
     MinutesToHours,
     FavouriteComponent,
     SearchComponent,
+    AuthenticationComponent,
   ],
   imports: [
     BrowserModule,

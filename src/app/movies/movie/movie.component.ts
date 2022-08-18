@@ -3,6 +3,7 @@ import { Movie, MovieDetails } from '../../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/modal/modal.component';
+import { UrlBuilderService } from 'src/app/services/url-builder.service';
 
 @Component({
   selector: 'app-movie',
@@ -14,13 +15,13 @@ export class MovieComponent implements OnInit {
 
   urlImage = '';
 
-  constructor(private modalService: NgbModal) {}
+  constructor(
+    private modalService: NgbModal,
+    private urlBuilderService: UrlBuilderService
+  ) {}
 
   ngOnInit() {
-    let definedUrl = this.movie.poster_path || this.movie.backdrop_path;
-    definedUrl
-      ? (this.urlImage = environment.urlImage + definedUrl)
-      : (this.urlImage = 'assets/images/no_image.jpg');
+    this.urlImage = this.urlBuilderService.getPosterUrl(this.movie);
   }
 
   openModal() {

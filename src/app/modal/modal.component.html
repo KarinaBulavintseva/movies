@@ -5,7 +5,7 @@
     </div>
     <div class="modal-window__description">
       <div class="modal-window__close-modal">
-        <button type="button" class="btn-close"></button>
+        <button type="button" class="btn-close" (click)="onClose()"></button>
       </div>
       <div class="modal-window__text-description">
         <p class="modal-window__movie-name">
@@ -14,7 +14,7 @@
             [ngClass]="{ clicked: isHeartClicked }"
             class="modal-window__icon"
             [icon]="faHeart"
-            (click)="onIconClick()"
+            (click)="addToFavourite()"
           ></fa-icon>
         </p>
         <p class="modal-window__movie-tagline">

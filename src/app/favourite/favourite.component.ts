@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MovieDetails } from '../interfaces/interfaces';
-import { FavouriteService } from '../services/favourite.service';
-import { MoviesService } from '../services/movies.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-favourite',
@@ -10,25 +9,20 @@ import { MoviesService } from '../services/movies.service';
   styleUrls: ['./favourite.component.scss'],
 })
 export class FavouriteComponent implements OnInit, OnDestroy {
-  arrayOfFavouriteMovies: MovieDetails[] = [];
+  favouriteMovies: MovieDetails[] = [];
   subscription = new Subscription();
 
-  constructor(
-    private favouriteService: FavouriteService,
-    private moviesService: MoviesService
-  ) {}
+  constructor(private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.arrayOfFavouriteMovies =
-      this.favouriteService.getMoviesFromLocalStorage();
+    this.favouriteMovies = this.localStorageService.getMoviesFromLocalStorage();
 
     this.subscription.add(
-      this.favouriteService.favouriteMoviesChanged$.subscribe(
-        (changedMovies) => (this.arrayOfFavouriteMovies = changedMovies)
+      this.localStorageService.favouriteMoviesChanged$.subscribe(
+        (changedMovies: MovieDetails[]) =>
+          (this.favouriteMovies = changedMovies)
       )
     );
-
-    this.moviesService.clearFilterParams();
   }
 
   ngOnDestroy(): void {

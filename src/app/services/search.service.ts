@@ -1,33 +1,38 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { MoviesService } from './movies.service';
+import { SearchParams } from '../interfaces/interfaces';
+import { DataManagingService } from './data-managing.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
-  queryChanged$ = new BehaviorSubject<{ page: number; text: string }>({
-    page: 1,
+  searchParamsChanged$ = new BehaviorSubject<SearchParams>({
+    pageNumber: 1,
     text: '',
   });
 
   currentPage = 1;
   text = '';
 
-  constructor(private moviesService: MoviesService) {}
-
-  updatePageNumber(page: number) {
-    this.currentPage = page;
-    this.notifyQueryChanging();
-  }
+  constructor(private dataManagingService: DataManagingService) {}
 
   updateTextForSearch(text: string) {
     this.text = text;
-    this.notifyQueryChanging();
+    this.currentPage = 1;
+    this.emitSearchParamsChanging();
+    this.dataManagingService.clearOptions();
   }
 
-  notifyQueryChanging() {
-    this.queryChanged$.next({ page: this.currentPage, text: this.text });
-    this.moviesService.clearFilterParams();
+  changePage(page: number) {
+    this.currentPage = page;
+    this.emitSearchParamsChanging();
+  }
+
+  emitSearchParamsChanging() {
+    this.searchParamsChanged$.next({
+      pageNumber: this.currentPage,
+      text: this.text,
+    });
   }
 }

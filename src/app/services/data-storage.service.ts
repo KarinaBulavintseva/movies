@@ -2,33 +2,37 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { MovieDetails, ResponseData } from '../interfaces/interfaces';
+import {
+  MovieDetails,
+  ResponseData,
+  SearchParams,
+} from '../interfaces/interfaces';
 import { SortOptions } from '../constants/FilterConstants';
+import { DataManagingService } from './data-managing.service';
 import { Filter } from '../interfaces/Filter';
-import { PaginationService } from './pagination.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
   constructor(
     private http: HttpClient,
-    private paginationService: PaginationService
+    private dataManagingService: DataManagingService
   ) {}
 
-  fetchMovies(objOfProperties?: Filter) {
+  getMovies(objOfProperties?: Filter) {
     let url = '';
     if (!objOfProperties) {
       url = environment.urlMovies;
     } else {
-      let option = objOfProperties.option || SortOptions[0].value;
-      let page = objOfProperties.page || 1;
-      let genre = objOfProperties.genre || '';
+      let option = objOfProperties.sortingOption || SortOptions[0].value;
+      let page = objOfProperties.pageNumber || 1;
+      let genres = objOfProperties.genres || '';
 
-      url = `${environment.urlMovies}&language=en-US&sort_by=${option}&page=${page}&with_genres=${genre}`;
+      url = `${environment.urlMovies}&language=en-US&sort_by=${option}&page=${page}&with_genres=${genres}`;
     }
 
     return this.http.get<ResponseData>(url).pipe(
       map((responseData) => {
-        this.paginationService.defineTotalMoviesNumber(
+        this.dataManagingService.defineTotalMoviesNumber(
           responseData.total_results
         );
         return responseData.results;
@@ -48,12 +52,14 @@ export class DataStorageService {
       );
   }
 
-  getMovieByQueryParam(obj: { page: number; text: string }) {
+  getMoviesByQueryParams(searchParams: SearchParams) {
     return this.http
-      .get<ResponseData>(`${environment.urlSearch}${obj.text}&page=${obj.page}`)
+      .get<ResponseData>(
+        `${environment.urlSearch}${searchParams.text}&page=${searchParams.pageNumber}`
+      )
       .pipe(
         map((responseData) => {
-          this.paginationService.defineTotalMoviesNumber(
+          this.dataManagingService.defineTotalMoviesNumber(
             responseData.total_results
           );
           return responseData.results;

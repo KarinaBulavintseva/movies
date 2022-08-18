@@ -1,48 +1,29 @@
 import { Injectable } from '@angular/core';
-import {
-  Genres,
-  selectedOption,
-  SortOptions,
-} from '../constants/FilterConstants';
-import { MoviesService } from './movies.service';
+import { DataManagingService } from './data-managing.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilterService {
-  genreList = Genres;
-  optionsList = SortOptions;
-  selectedValue = selectedOption;
-  idsOfPickedGenres: string[] = [];
-
-  constructor(private moviesService: MoviesService) {}
+  constructor(private dataManagingService: DataManagingService) {}
 
   selectNewOption(event: Event) {
-    this.selectedValue = (<HTMLSelectElement>event.target).value;
-    this.notifyChangesOfParams();
+    this.dataManagingService.option = (<HTMLSelectElement>event.target).value;
+    this.dataManagingService.updateFilterParams();
   }
 
   filterGenres(checkedValue: string) {
-    let isValueExist = this.idsOfPickedGenres.includes(checkedValue);
+    let isValueExist =
+      this.dataManagingService.genresList.includes(checkedValue);
 
     if (isValueExist) {
-      this.idsOfPickedGenres = this.idsOfPickedGenres.filter(
-        (item) => item !== checkedValue
-      );
+      this.dataManagingService.genresList =
+        this.dataManagingService.genresList.filter(
+          (item) => item !== checkedValue
+        );
     } else {
-      this.idsOfPickedGenres.push(checkedValue);
+      this.dataManagingService.genresList.push(checkedValue);
     }
-    this.notifyChangesOfParams();
-  }
-
-  notifyChangesOfParams() {
-    this.moviesService.recieveChangesOfParams(
-      this.selectedValue,
-      this.idsOfPickedGenres
-    );
-  }
-
-  clearGenres() {
-    this.idsOfPickedGenres = [];
+    this.dataManagingService.updateFilterParams();
   }
 }
