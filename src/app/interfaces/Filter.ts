@@ -1,7 +1,7 @@
 export interface Filter {
-  option: string;
-  genre: Array<string>;
-  page: number;
+  sortingOption: string;
+  genres: Array<string>;
+  pageNumber: number;
 
 
 }

@@ -5,7 +5,7 @@ import { MovieDetails } from '../interfaces/interfaces';
 @Injectable({
   providedIn: 'root',
 })
-export class FavouriteService {
+export class LocalStorageService {
   favouriteMoviesChanged$ = new Subject<MovieDetails[]>();
 
   constructor() {}
@@ -29,14 +29,11 @@ export class FavouriteService {
     if (isMovieFavourite) {
       favouriteMovies.push(movieObject);
     } else {
-      const index = favouriteMovies.findIndex(
-        (item) => (item.id = movieObject.id)
+      favouriteMovies = favouriteMovies.filter((item) =>
+        item.id === movieObject.id ? false : true
       );
-
-      if (index !== -1) {
-        favouriteMovies.splice(index, 1);
-      }
     }
+
     this.favouriteMoviesChanged$.next(favouriteMovies);
 
     localStorage.setItem(`favourite`, JSON.stringify(favouriteMovies));

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../services/search.service';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMagnifyingGlass,
+  faUserCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   faMagnifyingGlass = faMagnifyingGlass;
+  faUserCircle = faUserCircle;
   inputText = '';
 
   constructor(private router: Router, private searchService: SearchService) {}

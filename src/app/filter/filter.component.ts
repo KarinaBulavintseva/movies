@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Genres, SortOptions } from '../constants/FilterConstants';
 import { FilterService } from '../services/filter.service';
 
 @Component({
@@ -7,14 +8,12 @@ import { FilterService } from '../services/filter.service';
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent implements OnInit {
-  genres = this.filterService.genreList;
-  options = this.filterService.optionsList;
+  genres = Genres;
+  options = SortOptions;
 
   constructor(private filterService: FilterService) {}
 
-  ngOnInit(): void {
-    this.filterService.clearGenres();
-  }
+  ngOnInit(): void {}
 
   onChangeOption(event: Event) {
     this.filterService.selectNewOption(event);

@@ -2,7 +2,9 @@
   <section class="section section-movies">
     <app-filter></app-filter>
     <div class="cards-box">
-      <app-movie *ngFor="let movie of movies" [movie]="movie"> </app-movie>
+      <div class="cards-box__cards">
+        <app-movie *ngFor="let movie of movies" [movie]="movie"> </app-movie>
+      </div>
       <app-pagination></app-pagination>
     </div>
   </section>

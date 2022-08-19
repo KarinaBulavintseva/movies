@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { MovieDetails } from '../interfaces/interfaces';
 import { DataStorageService } from '../services/data-storage.service';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { FavouriteService } from '../services/favourite.service';
+import { UrlBuilderService } from '../services/url-builder.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-modal',
@@ -40,7 +40,8 @@ export class ModalComponent implements OnInit, OnDestroy {
   constructor(
     public activeModal: NgbActiveModal,
     private dataStorageService: DataStorageService,
-    private favouriteService: FavouriteService
+    private localStorageService: LocalStorageService,
+    private urlBuilderService: UrlBuilderService
   ) {}
 
   ngOnInit(): void {
@@ -51,33 +52,32 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.dataStorageService
         .getMovieDetailsById(this.id)
-        .subscribe((movieData) => {
+        .subscribe((movieData: MovieDetails) => {
           this.movieDetailsObject = movieData;
-          this.defineImageUrlPath(this.movieDetailsObject);
+          this.urlImage = this.urlBuilderService.getPosterUrl(
+            this.movieDetailsObject
+          );
           this.checkIfMovieIsFavourite();
         })
     );
   }
 
-  defineImageUrlPath(movieObject: MovieDetails) {
-    let definedUrl = movieObject.poster_path || movieObject.backdrop_path;
-    definedUrl
-      ? (this.urlImage = environment.urlImage + definedUrl)
-      : (this.urlImage = 'assets/images/no_image.jpg');
-  }
-
-  onIconClick() {
+  addToFavourite() {
     this.isHeartClicked = !this.isHeartClicked;
-    this.favouriteService.removeOrAddMovie(
+    this.localStorageService.removeOrAddMovie(
       this.isHeartClicked,
       this.movieDetailsObject
     );
   }
 
   checkIfMovieIsFavourite() {
-    this.isHeartClicked = this.favouriteService.checkIfMovieIsInLocalStorage(
+    this.isHeartClicked = this.localStorageService.checkIfMovieIsInLocalStorage(
       this.movieDetailsObject
     );
+  }
+
+  onClose(){
+    this.activeModal.close();
   }
 
   ngOnDestroy(): void {

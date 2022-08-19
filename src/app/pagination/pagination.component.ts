@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { MoviesService } from '../services/movies.service';
-import { PaginationService } from '../services/pagination.service';
-import { PaginationOptions } from '../constants/PaginationOptions';
+import { PaginationOptions } from '../constants/PaginationConstants';
+import { PaginationParams } from '../interfaces/interfaces';
+import { DataManagingService } from '../services/data-managing.service';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-pagination',
@@ -10,29 +11,29 @@ import { PaginationOptions } from '../constants/PaginationOptions';
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit, OnDestroy {
-  collectionSize = this.paginationService.currentNumberOfMovies;
   pageSize = PaginationOptions.PAGE_SIZE;
   maxSize = PaginationOptions.MAX_SIZE;
+  collectionSize = this.dataManagingService.maxElementsNumber;
   numberOfPage = 1;
   subscription = new Subscription();
 
   constructor(
-    private paginationService: PaginationService,
-    private moviesService: MoviesService
+    private dataManagingService: DataManagingService,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.moviesService.pageAndItemsNumberChanged$.subscribe((changedData) => {
-        this.collectionSize = changedData.elementsNumber;
-        this.numberOfPage = changedData.pageNumber;
-      })
+    this.dataManagingService.pageAndMoviesNumberChanged$.subscribe(
+      (result: PaginationParams) => {
+        this.collectionSize = result.moviesNumber;
+        this.numberOfPage = result.pageNumber;
+      }
     );
-    this.changePage();
   }
 
   changePage() {
-    this.paginationService.changePageNumber(this.numberOfPage);
+    this.dataManagingService.changePageNumber(this.numberOfPage);
+    this.searchService.changePage(this.numberOfPage);
   }
 
   ngOnDestroy(): void {

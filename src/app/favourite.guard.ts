@@ -6,13 +6,14 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FavouriteService } from './services/favourite.service';
+import { LocalStorageService } from './services/local-storage.service';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class FavouriteGuard implements CanActivate {
-  constructor(private favouriteService: FavouriteService) {}
+  constructor(private localStorageService: LocalStorageService) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -22,10 +23,7 @@ export class FavouriteGuard implements CanActivate {
     | boolean
     | UrlTree {
     const moviesFromLocalStorage =
-      this.favouriteService.getMoviesFromLocalStorage();
-    if (moviesFromLocalStorage.length) {
-      return true;
-    }
-    return false;
+      this.localStorageService.getMoviesFromLocalStorage();
+    return !!moviesFromLocalStorage.length;
   }
 }

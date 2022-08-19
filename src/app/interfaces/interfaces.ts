@@ -77,3 +77,14 @@ interface SpokenLanguage {
   iso_639_1: string;
   name: string;
 }
+
+
+export interface PaginationParams{
+  pageNumber:number;
+  moviesNumber:number;
+}
+
+export interface SearchParams{
+  pageNumber:number;
+  text:string;
+}

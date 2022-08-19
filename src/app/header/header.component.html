@@ -1,7 +1,7 @@
 <header class="header">
   <div class="header__inner container">
     <div class="logo">
-      <a href="#" class="logo__link">
+      <a routerLink="/" class="logo__link">
         <img src="assets/images/logo.png" width="40px" alt="" />
       </a>
     </div>
@@ -27,8 +27,9 @@
           <li class="nav__item">
             <a routerLink="/favourite" class="nav__item-link">Favourite</a>
           </li>
-          <li class="nav__item"><a class="nav__item-link">Log in</a></li>
-          <li class="nav__item"><a class="nav__item-link">Sing up</a></li>
+          <li class="nav__item">
+            <a class="nav__item-link" routerLink="/authentication">Account</a>
+          </li>
         </ul>
       </div>
     </nav>
