@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { FavouriteGuard } from './favourite.guard';
 import { FavouriteComponent } from './favourite/favourite.component';
@@ -14,7 +15,10 @@ const routes: Routes = [
     canActivate: [FavouriteGuard],
   },
   { path: 'search', component: SearchComponent },
-  { path: 'authentication', component: AuthenticationComponent },
+  {
+    path: 'authentication',
+    component: AuthenticationComponent,
+  },
 ];
 
 @NgModule({

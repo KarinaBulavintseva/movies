@@ -1,20 +1,59 @@
-<div class="container">
-  <div class="auth-box">
-    <div class="auth-form">
-      <form>
-        <div class="form-group">
+<div class="auth-content">
+  <div class="auth-form">
+    <form
+      class="auth-form__form"
+      [formGroup]="authForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="user-data">
+        <div class="auth-form__group">
           <label for="username">Username</label>
-          <input type="text" id="username" class="form-control" />
+          <input
+            type="text"
+            id="username"
+            class="auth-form__input"
+            formControlName="username"
+            (click)="deleteError()"
+          />
+          <span
+            class="auth-form__error"
+            *ngIf="
+              authForm.get('username')?.invalid &&
+              authForm.get('username')?.touched
+            "
+            >Can't be longer than 10 or shorter than 4 characters !</span
+          >
         </div>
-        <div class="form-group">
+        <div class="auth-form__group">
           <label for="password">Password</label>
-          <input type="password" id="password" class="form-control" />
+          <input
+            type="password"
+            id="password"
+            class="auth-form__input"
+            formControlName="password"
+          />
+          <span
+            class="auth-form__error"
+            *ngIf="
+              authForm.get('password')?.invalid &&
+              authForm.get('password')?.touched
+            "
+            >Can't be shorter than 4 characters !</span
+          >
         </div>
-        <div>
-          <button class="btn btn-primary">Sing up</button>
-          <button class="btn btn-primary">Switch to Log in</button>
-        </div>
-      </form>
-    </div>
+        <span class="auth-form__error" *ngIf="errorMessage">{{
+          errorMessage
+        }}</span>
+      </div>
+
+      <div class="auth-form__buttons">
+        <button class="btn btn-primary" [disabled]="!authForm.valid">
+          {{ isLoginMode ? "Login" : "Sign up" }}
+        </button>
+        <button class="btn btn-primary" type="button" (click)="onSwitchMode()">
+          Switch to {{ isLoginMode ? "Sign up" : "Login" }}
+        </button>
+      </div>
+    </form>
   </div>
 </div>

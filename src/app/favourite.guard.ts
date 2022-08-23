@@ -23,7 +23,7 @@ export class FavouriteGuard implements CanActivate {
     | boolean
     | UrlTree {
     const moviesFromLocalStorage =
-      this.localStorageService.getMoviesFromLocalStorage();
-    return !!moviesFromLocalStorage.length;
+      this.localStorageService.checkIfUserIsAuthorithed();
+    return !!moviesFromLocalStorage;
   }
 }

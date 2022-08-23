@@ -12,8 +12,8 @@ import { UrlBuilderService } from 'src/app/services/url-builder.service';
 })
 export class MovieComponent implements OnInit {
   @Input() movie!: Movie | MovieDetails;
-
   urlImage = '';
+  currentRating!:number;
 
   constructor(
     private modalService: NgbModal,
@@ -22,6 +22,8 @@ export class MovieComponent implements OnInit {
 
   ngOnInit() {
     this.urlImage = this.urlBuilderService.getPosterUrl(this.movie);
+    this.currentRating = this.movie.vote_average/2 ;
+    
   }
 
   openModal() {

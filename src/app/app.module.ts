@@ -14,10 +14,11 @@ import { FilterComponent } from './filter/filter.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './modal/modal.component';
 import { MinutesToHours } from './pipes/minutes-to-hours.pipe';
+import { ShortenPipe } from './pipes/shorten.pipe';
 import { FavouriteComponent } from './favourite/favourite.component';
 import { SearchComponent } from './search/search.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     FilterComponent,
     ModalComponent,
     MinutesToHours,
+    ShortenPipe,
     FavouriteComponent,
     SearchComponent,
     AuthenticationComponent,
@@ -38,6 +40,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
   ],
   providers: [],

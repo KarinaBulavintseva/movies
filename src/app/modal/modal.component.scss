@@ -80,7 +80,7 @@
     color: white;
     display: inline-block;
     padding: 10px;
-    background-color: #032541;
+    background-color:  #2963e1;
     border-radius: 20px;
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.206);
     transition: all 0.3s ease 0s;
@@ -95,3 +95,9 @@
 .clicked {
   color: red;
 }
+
+.btn-close :active, :hover, :focus {
+  box-shadow: none !important;
+  
+}
+
