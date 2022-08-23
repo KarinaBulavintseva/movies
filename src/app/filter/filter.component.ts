@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Genres, SortOptions } from '../constants/FilterConstants';
+import { DataManagingService } from '../services/data-managing.service';
 import { FilterService } from '../services/filter.service';
 
 @Component({
@@ -10,16 +11,23 @@ import { FilterService } from '../services/filter.service';
 export class FilterComponent implements OnInit {
   genres = Genres;
   options = SortOptions;
+  checkedGenreObj = this.filterService.filterObj;
+  defaultOption = this.dataManagingService.option;
 
-  constructor(private filterService: FilterService) {}
+  constructor(
+    private filterService: FilterService,
+    private dataManagingService: DataManagingService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.checkedGenreObj);
+  }
 
   onChangeOption(event: Event) {
     this.filterService.selectNewOption(event);
   }
 
-  onPickGenre(checkedValue: string) {
+  onPickGenre(checkedValue: number) {
     this.filterService.filterGenres(checkedValue);
   }
 }

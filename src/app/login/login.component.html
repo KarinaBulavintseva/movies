@@ -1,0 +1,27 @@
+<!-- <form class="auth-form__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()"> -->
+  <div class="user-data">
+    <div class="auth-form__group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        class="auth-form__input"
+        formControlName="username"
+      />
+    </div>
+    <div class="auth-form__group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        class="auth-form__input"
+        formControlName="password"
+      />
+      <span class="auth-form__error">Can't be shorter than 4 characters !</span>
+    </div>
+  </div>
+
+  <div class="auth-form__buttons">
+    <button class="btn btn-primary"></button>
+  </div>
+<!-- </form> -->

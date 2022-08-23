@@ -19,6 +19,7 @@ import { FavouriteComponent } from './favourite/favourite.component';
 import { SearchComponent } from './search/search.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +34,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FavouriteComponent,
     SearchComponent,
     AuthenticationComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

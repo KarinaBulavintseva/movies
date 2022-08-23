@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { PaginationOptions } from '../constants/PaginationConstants';
 import { Filter } from '../interfaces/Filter';
 import { PaginationParams } from '../interfaces/interfaces';
@@ -11,12 +11,10 @@ export class DataManagingService {
   currentPage = this.initialPage;
   maxElementsNumber = PaginationOptions.MAX_MOVIES_NUMBER;
   currentElementsNumber = this.maxElementsNumber;
-  genresList: string[] = [];
+  genresList: number[] = [];
   option = '';
 
-  filterParamsChanged$ = new Subject<Filter>();
-
-  pageAndMoviesNumberChanged$ = new Subject<PaginationParams>();
+  // filterParamsChanged$ = new Subject<Filter>();
 
   filterParamsObject: Filter = {
     pageNumber: this.currentPage,
@@ -24,6 +22,11 @@ export class DataManagingService {
     sortingOption: this.option,
   };
 
+  filterParamsChanged$ = new BehaviorSubject<Filter>(this.filterParamsObject);
+  pageChanged$  = new Subject<number>()
+  moviesNumberChanged$ = new Subject<number>();
+  // pageAndMoviesNumberChanged$ = new Subject<PaginationParams>();
+  
   constructor() {}
 
   defineTotalMoviesNumber(collectionSize: number) {
@@ -31,7 +34,7 @@ export class DataManagingService {
       ? (this.currentElementsNumber = collectionSize)
       : (this.currentElementsNumber = this.maxElementsNumber);
 
-    this.emitPageAndMoviesNumberChanging();
+    this.moviesNumberChanged$.next(this.currentElementsNumber);
   }
 
   changePageNumber(page: number) {
@@ -42,7 +45,7 @@ export class DataManagingService {
   updateFilterParams() {
     this.currentPage = this.initialPage;
     this.emitFilterParamsChanging();
-    this.emitPageAndMoviesNumberChanging();
+    // this.pageChanged$.next(this.currentPage);
   }
 
   emitFilterParamsChanging() {
@@ -50,19 +53,19 @@ export class DataManagingService {
     this.filterParamsObject.genres = this.genresList;
     this.filterParamsObject.sortingOption = this.option;
     this.filterParamsChanged$.next(this.filterParamsObject);
+   
   }
+  // page(){
+  //   this.pageChanged$.next(this.currentPage);
+  
 
-  emitPageAndMoviesNumberChanging() {
-    this.pageAndMoviesNumberChanged$.next({
-      pageNumber: this.currentPage,
-      moviesNumber: this.currentElementsNumber,
-    });
-  }
+  // }
 
-  clearOptions() {
-    this.currentPage = this.initialPage;
-    this.genresList = [];
-    this.option = '';
-    this.emitPageAndMoviesNumberChanging();
-  }
+  // emitPageAndMoviesNumberChanging() {
+  //   this.pageAndMoviesNumberChanged$.next({
+  //     pageNumber: this.currentPage,
+  //     moviesNumber: this.currentElementsNumber,
+  //   });
+  // }
+
 }

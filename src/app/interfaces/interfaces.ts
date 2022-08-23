@@ -88,7 +88,17 @@ export interface SearchParams {
   text: string;
 }
 
-export interface User{
-  username:string;
-  password:string;
+export interface User {
+  username: string;
+  password: string;
+}
+
+export interface Genre {
+  id: number;
+  name: string;
+  checked: boolean;
+}
+export interface SortingOption {
+  value: string;
+  title: string;
 }

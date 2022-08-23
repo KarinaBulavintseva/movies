@@ -10,6 +10,7 @@
           class="filter-panel__option"
           *ngFor="let option of options"
           [value]="option.value"
+          [selected]="option.value === defaultOption"
         >
           {{ option.title }}
         </option>
@@ -20,11 +21,11 @@
       <div class="filter-panel__checkbox-filter">
         <label class="filter-panel__label check" *ngFor="let genre of genres">
           <input
-            #checked
             class="filter-panel__checkbox"
             type="checkbox"
+            [checked]="checkedGenreObj[genre.id]"
             [value]="genre.id"
-            (change)="onPickGenre(checked.value)"
+            (change)="onPickGenre(genre.id)"
           /><span class="filter-panel__box"></span>
           {{ genre.name }}
         </label>
