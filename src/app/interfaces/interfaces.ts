@@ -78,13 +78,17 @@ interface SpokenLanguage {
   name: string;
 }
 
-
-export interface PaginationParams{
-  pageNumber:number;
-  moviesNumber:number;
+export interface PaginationParams {
+  pageNumber: number;
+  moviesNumber: number;
 }
 
-export interface SearchParams{
-  pageNumber:number;
-  text:string;
+export interface SearchParams {
+  pageNumber: number;
+  text: string;
+}
+
+export interface User{
+  username:string;
+  password:string;
 }

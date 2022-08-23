@@ -11,6 +11,7 @@
         <p class="modal-window__movie-name">
           {{ movieDetailsObject.title
           }}<fa-icon
+          *ngIf="isAuthorithed"
             [ngClass]="{ clicked: isHeartClicked }"
             class="modal-window__icon"
             [icon]="faHeart"

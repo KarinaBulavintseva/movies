@@ -21,5 +21,41 @@
   }
   &__description {
     padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    gap: 5px;
   }
+
+  &__name {
+    white-space: nowrap;
+    color:rgb(195, 197, 199);
+  }
+  
+  
+  &__rating-stars {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  &__rating-average{
+    color:rgb(195, 197, 199);
+  }
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 1.2rem;
+  color: #b6b4b4;
+}
+.full {
+  color: rgb(158, 135, 32);
+}
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: rgb(158, 135, 32);
 }

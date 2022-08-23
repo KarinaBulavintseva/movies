@@ -18,6 +18,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   faHeart = faHeart;
   urlImage = '';
   isHeartClicked = false;
+  isAuthorithed = false;
 
   movieDetailsObject: MovieDetails = {
     title: '',
@@ -58,6 +59,7 @@ export class ModalComponent implements OnInit, OnDestroy {
             this.movieDetailsObject
           );
           this.checkIfMovieIsFavourite();
+          this.check();
         })
     );
   }
@@ -71,13 +73,21 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   checkIfMovieIsFavourite() {
-    this.isHeartClicked = this.localStorageService.checkIfMovieIsInLocalStorage(
-      this.movieDetailsObject
-    );
+    
+      this.isHeartClicked = this.localStorageService.checkIfMovieIsInLocalStorage(
+        this.movieDetailsObject
+      );
+    
+   
   }
 
-  onClose(){
+  onClose() {
     this.activeModal.close();
+  }
+
+  check() {
+    this.isAuthorithed =
+      !!this.localStorageService.checkIfUserIsAuthorithed();
   }
 
   ngOnDestroy(): void {

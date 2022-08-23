@@ -19,18 +19,51 @@
             <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
           </button>
         </div>
-
-        <ul class="nav__main-menu">
-          <li class="nav__item">
-            <a routerLink="/" class="nav__item-link">Movies</a>
-          </li>
-          <li class="nav__item">
-            <a routerLink="/favourite" class="nav__item-link">Favourite</a>
-          </li>
-          <li class="nav__item">
-            <a class="nav__item-link" routerLink="/authentication">Account</a>
-          </li>
-        </ul>
+        <div class="nav__menu">
+          <ul class="nav__main-menu">
+            <li
+              class="nav__item"
+              routerLinkActive="nav__link-active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <a routerLink="/" class="nav__item-link">Movies</a>
+            </li>
+            <li
+              class="nav__item"
+              routerLinkActive="nav__link-active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <a routerLink="/favourite" class="nav__item-link">Favourite</a>
+            </li>
+          </ul>
+          <div class="nav__user-menu">
+            <ul class="nav__auth">
+              <li
+                class="nav__item"
+                *ngIf="!AuthenticatedUser"
+                routerLinkActive="nav__link-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <a class="nav__item-link" routerLink="/authentication">
+                  Account
+                </a>
+              </li>
+              <li class="nav__username" *ngIf="AuthenticatedUser">
+                {{ AuthenticatedUser }}
+              </li>
+              <div class="nav__icon">
+                <fa-icon class="nav__user-icon" [icon]="faUserCircle"></fa-icon>
+              </div>
+            </ul>
+            <button
+              class="nav__button-logout"
+              *ngIf="AuthenticatedUser"
+              (click)="onLogOut()"
+            >
+              Log out
+            </button>
+          </div>
+        </div>
       </div>
     </nav>
   </div>
