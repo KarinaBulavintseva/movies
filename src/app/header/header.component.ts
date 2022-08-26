@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   faMagnifyingGlass = faMagnifyingGlass;
   faUserCircle = faUserCircle;
   inputText = '';
-  AuthenticatedUser = '';
+  authenticatedUser = '';
 
   constructor(
     private router: Router,
@@ -26,8 +26,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkAuthorithedUser();
-    this.localStorageService.userName.subscribe((res) => {
-      this.AuthenticatedUser = res;
+    this.localStorageService.userName.subscribe((username) => {
+      this.authenticatedUser = username;
     });
   }
 
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
   }
 
   checkAuthorithedUser() {
-    this.AuthenticatedUser =
+    this.authenticatedUser =
       this.localStorageService.checkIfUserIsAuthorithed();
   }
 

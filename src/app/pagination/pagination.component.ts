@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PaginationOptions } from '../constants/PaginationConstants';
-import { PaginationParams } from '../interfaces/interfaces';
 import { DataManagingService } from '../services/data-managing.service';
 import { SearchService } from '../services/search.service';
 
@@ -49,7 +48,6 @@ export class PaginationComponent implements OnInit, OnDestroy {
   x() {
     if (this.currentUrl === '/') {
       this.numberOfPage = this.dataManagingService.currentPage;
-      console.log(this.numberOfPage, this.dataManagingService);
     }
   }
 

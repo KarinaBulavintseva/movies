@@ -45,7 +45,7 @@ export class DataManagingService {
   updateFilterParams() {
     this.currentPage = this.initialPage;
     this.emitFilterParamsChanging();
-    // this.pageChanged$.next(this.currentPage);
+    this.pageChanged$.next(this.currentPage);
   }
 
   emitFilterParamsChanging() {

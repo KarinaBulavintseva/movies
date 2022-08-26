@@ -52,10 +52,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
+
 a,
 button {
   cursor: pointer;
@@ -63,13 +60,10 @@ button {
 
 input {
   font-family: inherit;
+  outline: none;
 }
 
-.wrapper {
-  min-height: 100vh;
-  overflow: hidden;
-  width: 100%;
-}
+
 
 .modal-content {
   border-radius: 12px;
@@ -100,3 +94,26 @@ ngb-pagination .page-item.active .page-link {
   background-color:#e6e6e6 ;
 }
 
+
+.wrapper {
+  min-height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+}
+
+.content{
+  // border:2px solid red;
+  width:100%;
+  min-height: 100%;
+  flex-grow: 1;
+  display:flex;
+  justify-content: center;
+}
+
+.container {
+  // border:2px solid pink;
+  max-width: 1200px;
+  margin: 0 auto;
+}

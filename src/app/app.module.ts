@@ -20,6 +20,7 @@ import { SearchComponent } from './search/search.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { LoginComponent } from './login/login.component';
     SearchComponent,
     AuthenticationComponent,
     LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

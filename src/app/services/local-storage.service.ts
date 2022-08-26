@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MovieDetails } from '../interfaces/interfaces';
-import { User } from '../models/user.model';
+import { MovieDetails, User } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -44,20 +43,16 @@ export class LocalStorageService {
 
   getMoviesFromLocalStorage() {
     const moviesFromLocalStorage = localStorage.getItem(this.currentUserName);
-    if (moviesFromLocalStorage) {
-      return JSON.parse(moviesFromLocalStorage);
-    }
-    return [];
+    return moviesFromLocalStorage ? JSON.parse(moviesFromLocalStorage) : [];
   }
 
   signup(obj: User) {
-    console.log('sign up');
     let usersArrayFromLS = localStorage.getItem('users');
     if (usersArrayFromLS) {
       const parsedArray: User[] = JSON.parse(usersArrayFromLS);
       const result = parsedArray.some((item) => item.username === obj.username);
       if (result) {
-        this.error.next('User is already registered,please log in !');
+        this.error.next('You are already registered. Please log in !');
       } else {
         parsedArray.push(obj);
         localStorage.setItem('currentUser', JSON.stringify(obj));
@@ -75,7 +70,6 @@ export class LocalStorageService {
   }
 
   login(obj: User) {
-    console.log('login');
     let usersArrayFromLS = localStorage.getItem('users');
     if (usersArrayFromLS) {
       const parsedArray: User[] = JSON.parse(usersArrayFromLS);
@@ -83,17 +77,18 @@ export class LocalStorageService {
         (item) =>
           item.username === obj.username && item.password === obj.password
       );
-      console.log(result);
       if (result) {
-        console.log('logged in succesfully');
         localStorage.setItem('currentUser', JSON.stringify(obj));
         this.currentUserName = obj.username;
         this.userName.next(obj.username);
       } else {
-        this.error.next("There's invalid username or password !")
+        this.error.next('Invalid username or password !');
       }
+    }else{
+      this.error.next('Invalid username or password !');
     }
   }
+
 
   checkIfUserIsAuthorithed() {
     const userAuthorithed = localStorage.getItem('currentUser');

@@ -1,6 +1,13 @@
+:host{
+  width:100%;
+  border:2px solid blue;
+}
+
 .favourite-movies {
-  border-top: 1px solid rgba(255, 255, 255, 0.217);
+  // border-top: 1px solid rgba(255, 255, 255, 0.217);
+  border-top:2px solid rgb(78, 176, 51);
   &__inner {
+    border:2px solid red;
     padding-top: 10%;
   }
 }

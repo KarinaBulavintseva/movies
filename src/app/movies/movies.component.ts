@@ -20,9 +20,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-  // this.dataManagingService.page();
-    // this.page();
-    // this.subscription$.add(this.subscribeOnRecievedData());
     this.subscription$.add(
       this.dataManagingService.filterParamsChanged$.subscribe(
         (changedValues: Filter) => {
@@ -30,10 +27,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
         }
       )
     );
-    // this.dataManagingService.clearOptions();
   }
-
-  
 
   subscribeOnRecievedData(propertiesObj?: Filter) {
     this.dataStorageService

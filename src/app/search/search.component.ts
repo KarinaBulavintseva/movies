@@ -20,20 +20,20 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription$.add(
-      this.searchService.searchParamsChanged$.subscribe((queryParams: SearchParams) => {
-        this.subscription$.add(
-          this.dataStorageService
-            .getMoviesByQueryParams(queryParams)
-            .subscribe((movies: Movie[]) => {
-              this.foundMovies = movies;
-            })
-        );
-      })
+      this.searchService.searchParamsChanged$.subscribe(
+        (queryParams: SearchParams) => {
+          this.subscription$.add(
+            this.dataStorageService
+              .getMoviesByQueryParams(queryParams)
+              .subscribe((movies: Movie[]) => {
+                this.foundMovies = movies;
+              })
+          );
+        }
+      )
     );
   }
 
-
-  
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }

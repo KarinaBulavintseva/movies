@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Genres, SortOptions } from '../constants/FilterConstants';
 import { DataManagingService } from '../services/data-managing.service';
 import { FilterService } from '../services/filter.service';
@@ -8,7 +8,7 @@ import { FilterService } from '../services/filter.service';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent {
   genres = Genres;
   options = SortOptions;
   checkedGenreObj = this.filterService.filterObj;
@@ -18,10 +18,6 @@ export class FilterComponent implements OnInit {
     private filterService: FilterService,
     private dataManagingService: DataManagingService
   ) {}
-
-  ngOnInit(): void {
-    console.log(this.checkedGenreObj);
-  }
 
   onChangeOption(event: Event) {
     this.filterService.selectNewOption(event);

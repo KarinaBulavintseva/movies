@@ -73,12 +73,9 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   checkIfMovieIsFavourite() {
-    
-      this.isHeartClicked = this.localStorageService.checkIfMovieIsInLocalStorage(
-        this.movieDetailsObject
-      );
-    
-   
+    this.isHeartClicked = this.localStorageService.checkIfMovieIsInLocalStorage(
+      this.movieDetailsObject
+    );
   }
 
   onClose() {
@@ -86,8 +83,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   check() {
-    this.isAuthorithed =
-      !!this.localStorageService.checkIfUserIsAuthorithed();
+    this.isAuthorithed = !!this.localStorageService.checkIfUserIsAuthorithed();
   }
 
   ngOnDestroy(): void {

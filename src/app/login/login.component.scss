@@ -1,0 +1,69 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  //   border: solid 2px green;
+  height: 100%;
+  width: 100%;
+}
+
+.login-form {
+  //   border: 2px solid blue;
+  height: 100%;
+  &__form {
+    height: 100%;
+    padding: 20px;
+    //    border:2px solid pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 20px;
+  }
+  &__user-data {
+    // border:2px solid red;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    flex-grow: 1;
+    gap: 40px;
+  }
+
+  &__group {
+    color: azure;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+  }
+
+  &__eye-icon {
+    color:rgba(64, 63, 63, 0.661);
+    position: absolute;
+    right: 4em;
+    bottom: 0.6em;
+  }
+  &__input {
+    letter-spacing: 2px;
+    color:azure;
+    border-radius: 15px;
+    width: 90%;
+    padding: 7px;
+    background-color: rgba(177, 175, 175, 0.446);
+  }
+
+  &__validation-error{
+    font-weight: 400;
+    position:absolute;
+    top:4em;
+    color:rgb(155, 37, 37);
+  }
+  &__error{
+    color:rgb(155, 37, 37);
+    font-weight: 500;
+  }
+}
+
+input.ng-invalid.ng-touched{
+  border:1px solid rgba(255, 0, 0, 0.343);
+  box-shadow: inset 0 0 10px  rgba(255, 0, 0, 0.226);
+}
