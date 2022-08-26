@@ -12,7 +12,7 @@
           {{ movieDetailsObject.title
           }}<fa-icon
             *ngIf="isAuthorithed"
-            [ngClass]="{ clicked: isHeartClicked }"
+            [ngClass]="{ clicked: isMovieFavourite }"
             class="modal-window__icon"
             [icon]="faHeart"
             (click)="addToFavourite()"

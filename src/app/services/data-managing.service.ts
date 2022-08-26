@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { PaginationOptions } from '../constants/PaginationConstants';
 import { Filter } from '../interfaces/Filter';
-import { PaginationParams } from '../interfaces/interfaces';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,8 +14,6 @@ export class DataManagingService {
   genresList: number[] = [];
   option = '';
 
-  // filterParamsChanged$ = new Subject<Filter>();
-
   filterParamsObject: Filter = {
     pageNumber: this.currentPage,
     genres: this.genresList,
@@ -23,10 +21,9 @@ export class DataManagingService {
   };
 
   filterParamsChanged$ = new BehaviorSubject<Filter>(this.filterParamsObject);
-  pageChanged$  = new Subject<number>()
+  pageChanged$ = new Subject<number>();
   moviesNumberChanged$ = new Subject<number>();
-  // pageAndMoviesNumberChanged$ = new Subject<PaginationParams>();
-  
+
   constructor() {}
 
   defineTotalMoviesNumber(collectionSize: number) {
@@ -53,19 +50,5 @@ export class DataManagingService {
     this.filterParamsObject.genres = this.genresList;
     this.filterParamsObject.sortingOption = this.option;
     this.filterParamsChanged$.next(this.filterParamsObject);
-   
   }
-  // page(){
-  //   this.pageChanged$.next(this.currentPage);
-  
-
-  // }
-
-  // emitPageAndMoviesNumberChanging() {
-  //   this.pageAndMoviesNumberChanged$.next({
-  //     pageNumber: this.currentPage,
-  //     moviesNumber: this.currentElementsNumber,
-  //   });
-  // }
-
 }

@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription.add(
-      this.localStorageService.error.subscribe((error) => {
+      this.localStorageService.errorMessageChanged$.subscribe((error) => {
         this.errorMessage = error;
       })
     );
