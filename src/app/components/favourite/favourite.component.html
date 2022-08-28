@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="favourite">
+    <div class="favourite__inner">
+      <div *ngIf="!favouriteMovies.length" class="favourite__empty">
+        You haven't added favourite movies
+      </div>
+      <div class="favourite__cards">
+        <app-movie *ngFor="let movie of favouriteMovies" [movie]="movie">
+        </app-movie>
+      </div>
+    </div>
+  </div>
+</div>

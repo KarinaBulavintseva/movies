@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { SearchParams } from '../interfaces/interfaces';
-
+import { PaginationOptions } from '../constants/PaginationConstants';
+import { SearchParams } from '../interfaces/Search';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
+  currentPage = PaginationOptions.INITIAL_PAGE;
+  text = '';
+
   searchParamsChanged$ = new BehaviorSubject<SearchParams>({
-    pageNumber: 1,
+    pageNumber: this.currentPage,
     text: '',
   });
-
-  currentPage = 1;
-  text = '';
 
   constructor() {}
 
   updateTextForSearch(text: string) {
     this.text = text;
-    this.currentPage = 1;
+    this.currentPage = PaginationOptions.INITIAL_PAGE;
     this.emitSearchParamsChanging();
   }
 
@@ -28,7 +28,7 @@ export class SearchService {
     this.emitSearchParamsChanging();
   }
 
-  emitSearchParamsChanging() {
+  private emitSearchParamsChanging() {
     this.searchParamsChanged$.next({
       pageNumber: this.currentPage,
       text: this.text,

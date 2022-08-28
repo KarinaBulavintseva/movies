@@ -1,0 +1,30 @@
+:host {
+  width: 100%;
+}
+
+.favourite {
+  height: 100%;
+
+  &__inner {
+    height: 100%;
+    padding-top: 8%;
+    padding-bottom: 4%;
+  }
+
+  &__empty {
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    color: rgb(199, 205, 210);
+    font-size: 1.5rem;
+  }
+
+  &__cards {
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px 15px;
+  }
+}

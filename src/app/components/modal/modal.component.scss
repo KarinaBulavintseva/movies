@@ -1,0 +1,121 @@
+.modal-window {
+  &__box {
+    display: flex;
+  }
+
+  &__image-box {
+    min-height: 80vh;
+    width: 40%;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__description {
+    width: 60%;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__close-modal {
+    padding: 5px 5px 0 0;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+  }
+
+  &__text-description {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1rem;
+    color: rgb(45, 44, 44);
+    flex-grow: 2;
+  }
+
+  &__movie-name {
+    width: 80%;
+    display: flex;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  &__icon {
+    padding-left: 3%;
+  }
+
+  &__icon-heart {
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+  }
+
+  &__icon-heart:hover {
+    color: red;
+  }
+
+  &__movie-facts {
+    display: flex;
+    align-items: center;
+  }
+
+  &__runtime::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(45, 44, 44);
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 0px 5px 0 5px;
+  }
+
+  &__genre {
+    padding-right: 5px;
+  }
+
+  &__genre:not(:last-of-type)::after {
+    content: ",";
+  }
+
+  &__overview {
+    line-height: 1.5;
+    overflow-y: auto;
+  }
+
+  &__homepage {
+    margin-top: 10px;
+  }
+
+  &__homepage-link {
+    color: white;
+    display: inline-block;
+    padding: 10px;
+    background-color: #2963e1;
+    border-radius: 20px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.206);
+    transition: all 0.3s ease 0s;
+  }
+
+  &__homepage-link:hover {
+    box-shadow: 0px 12px 18px rgba(0, 0, 0, 0.264);
+    transform: translateY(-5px);
+  }
+}
+
+.clicked {
+  color: red;
+}
+
+.btn-close :active,
+:hover,
+:focus {
+  box-shadow: none !important;
+}

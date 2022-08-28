@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="search">
+    <div class="search__inner">
+      <div class="search__empty" *ngIf="notFound">Not found</div>
+      <div class="search__cards-box" *ngIf="foundMovies.length">
+        <div class="search__cards">
+          <app-movie *ngFor="let movie of foundMovies" [movie]="movie">
+          </app-movie>
+        </div>
+        <app-pagination></app-pagination>
+      </div>
+    </div>
+  </div>
+</div>
