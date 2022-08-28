@@ -1,0 +1,116 @@
+<div class="sign-up-form">
+  <form
+    class="sign-up-form__form"
+    [formGroup]="signUpForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="sign-up-form__user-data">
+      <div class="sign-up-form__group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          class="sign-up-form__input"
+          formControlName="username"
+          (focus)="deleteErrorMessage()"
+        />
+        <span
+          class="sign-up-form__validation-error"
+          *ngIf="
+          username?.errors?.['minlength']
+        "
+          >Cannot be shorter than 4 characters
+        </span>
+        <span
+          class="sign-up-form__validation-error"
+          *ngIf="
+      username?.errors?.['maxlength']
+      "
+          >Cannot be longer than 10 characters
+        </span>
+        <span
+          class="sign-up-form__validation-error"
+          *ngIf="
+      username?.errors?.['required'] && username?.touched
+      "
+          >Field is required
+        </span>
+      </div>
+      <div class="sign-up-form__group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          class="sign-up-form__input"
+          formControlName="password"
+          [type]="isPasswordHide ? 'password' : 'text'"
+          (focus)="deleteErrorMessage()"
+        />
+        <fa-icon
+          (click)="togglePasswordVisibility()"
+          class="sign-up-form__eye-icon"
+          [icon]="isPasswordHide ? faEyeSlash : faEye"
+        ></fa-icon>
+        <span
+          class="sign-up-form__validation-error"
+          *ngIf="
+            password?.errors?.['required'] &&
+            password?.touched
+          "
+          >Field is required
+        </span>
+        <span
+          class="sign-up-form__validation-error"
+          *ngIf="
+            password?.errors?.['minlength'] 
+          "
+          >Cannot be shorter than 4 characters</span
+        >
+        <span
+          class="sign-up-form__validation-error"
+          *ngIf="
+            password?.errors?.['maxlength'] 
+          "
+          >Cannot be shorter than 20 characters</span
+        >
+      </div>
+      <div class="sign-up-form__group">
+        <label for="password"> Confirm password</label>
+        <input
+          [type]="isPasswordConfirmHide ? 'password' : 'text'"
+          id="password"
+          class="sign-up-form__input"
+          formControlName="confirmPassword"
+          (focus)="deleteErrorMessage()"
+        />
+        <fa-icon
+          (click)="togglePasswordConfirmVisibility()"
+          class="sign-up-form__eye-icon"
+          [icon]="isPasswordConfirmHide ? faEyeSlash : faEye"
+        ></fa-icon>
+        <span
+          class="sign-up-form__validation-error"
+          *ngIf="
+          confirmPassword?.errors?.['required'] &&
+          confirmPassword?.touched
+        "
+          >Please confirm password
+        </span>
+        <span
+          class="sign-up-form__validation-error"
+          *ngIf="signUpForm.errors?.['confirmValidator'] && !confirmPassword?.errors?.['required']"
+        >
+          Please make sure your passwords match
+        </span>
+      </div>
+      <span class="sign-up-form__error" *ngIf="errorMessage">{{
+        errorMessage
+      }}</span>
+    </div>
+
+    <div class="sign-up-form__button">
+      <button class="btn btn-primary" [disabled]="signUpForm.invalid">
+        Sign up
+      </button>
+    </div>
+  </form>
+</div>

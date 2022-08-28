@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Movie, MovieDetails } from '../../interfaces/interfaces';
-import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/modal/modal.component';
 import { UrlBuilderService } from 'src/app/services/url-builder.service';
@@ -13,7 +12,7 @@ import { UrlBuilderService } from 'src/app/services/url-builder.service';
 export class MovieComponent implements OnInit {
   @Input() movie!: Movie | MovieDetails;
   urlImage = '';
-  currentRating!:number;
+  currentRating!: number;
 
   constructor(
     private modalService: NgbModal,
@@ -22,8 +21,7 @@ export class MovieComponent implements OnInit {
 
   ngOnInit() {
     this.urlImage = this.urlBuilderService.getPosterUrl(this.movie);
-    this.currentRating = this.movie.vote_average/2 ;
-    
+    this.currentRating = this.movie.vote_average / 2;
   }
 
   openModal() {

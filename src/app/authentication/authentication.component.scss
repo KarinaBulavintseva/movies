@@ -1,80 +1,43 @@
-
-.auth-content{
-    width:100%;
-    height: 90vh;
-    display:flex;
-    justify-content:center;
-    align-items: center;
-    background-image: url(../../assets/images/poster_7.jpg);
-    background-size: 105%;
-    background-position: center -100px;
+:host {
+  display: flex;
+  width: 100%;
 }
 
-.auth-form{
-    background-color:rgba(36, 39, 46, 0.935);
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 400px;
-    height: 350px;
-    border:1px solid rgba(0, 0, 0, 0.172);
-  
-   
-    &__form{
-        padding: 5px;
-        // border:2px solid red;
-        width:90%;
-        // border:2px solid red;
-        color:aliceblue;
-        display:flex;
-        flex-direction: column;
-        justify-content: center;
-        // gap:5rem;
-    }
-
-    &__group{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap:15%;
-    }
-    &__group label{
-        color:rgb(156, 158, 158);
-      
-    }
-
-    &__input{
-        color:rgb(187, 187, 186);
-        outline:none;
-        padding:10px;
-        border-radius: 5px;
-        background-color: rgba(128, 128, 128, 0.358);
-    }
-
-    &__error{
-        // border:2px solid red;
-        font-size: 0.95rem;
-        color:red;
-    }
-
-    &__buttons{
-        // border:2px solid blue;
-        display:flex;
-        align-items: center;
-        gap:5%;
-    }
-}
-.user-data{
-    height: 200px;
-    // border:2px solid green;
-    display: flex;
-    flex-direction: column;
-    gap:30px;
-    padding-bottom:20%;
+.auth-content {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(197, 199, 201);
+  background-image: url(../../assets/images/poster_7.jpg);
+  background-size: 105%;
+  background-position: center -100px;
 }
 
-input.ng-invalid.ng-touched{
-    border:0.5px solid red;
-    
+.auth-box {
+  overflow: hidden;
+  padding: 10px;
+  width: 35%;
+  height: 78%;
+  background-color: rgba(36, 39, 46, 0.935);
+  border-radius: 12px;
+}
+
+.auth-links {
+  padding-left: 25px;
+  padding-top: 15px;
+  color: antiquewhite;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  display: flex;
+  gap: 10%;
+}
+.auth-form {
+  // border:2px solid red;
+  width: 100%;
+  height: 90%;
+}
+.active {
+  color: blue;
 }

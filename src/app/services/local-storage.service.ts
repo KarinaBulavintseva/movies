@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MovieDetails } from '../interfaces/interfaces';
-import { User } from '../models/user.model';
+import { MovieDetails, User } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
   favouriteMoviesChanged$ = new Subject<MovieDetails[]>();
-  userName = new Subject<string>();
-  currentUserName = '';
-  error = new Subject<string>();
+  currentUsername = '';
+  usernameChanged$ = new Subject<string>();
+  errorMessageChanged$ = new Subject<string>();
+
   constructor() {}
 
   checkIfMovieIsInLocalStorage(movieObject: MovieDetails) {
@@ -22,7 +22,6 @@ export class LocalStorageService {
         isMovieInLocalStorage = true;
       }
     }
-
     return isMovieInLocalStorage;
   }
 
@@ -36,76 +35,84 @@ export class LocalStorageService {
         item.id === movieObject.id ? false : true
       );
     }
-
     this.favouriteMoviesChanged$.next(favouriteMovies);
-
-    localStorage.setItem(this.currentUserName, JSON.stringify(favouriteMovies));
+    localStorage.setItem(this.currentUsername, JSON.stringify(favouriteMovies));
   }
 
   getMoviesFromLocalStorage() {
-    const moviesFromLocalStorage = localStorage.getItem(this.currentUserName);
-    if (moviesFromLocalStorage) {
-      return JSON.parse(moviesFromLocalStorage);
+    const moviesFromLocalStorage = localStorage.getItem(this.currentUsername);
+    return moviesFromLocalStorage ? JSON.parse(moviesFromLocalStorage) : [];
+  }
+
+  signup(user: User) {
+    let isUserExist = false;
+
+    let usersArray = this.getUsersFromLocalStorage();
+
+    if (usersArray.length) {
+      isUserExist = this.checkIfUserExist(usersArray, user);
+    }
+
+    if (isUserExist) {
+      this.errorMessageChanged$.next(
+        'You are already registered. Please log in !'
+      );
+    } else {
+      usersArray.push(user);
+      localStorage.setItem('users', JSON.stringify(usersArray));
+      this.setCurrentUser(user);
+    }
+  }
+
+  login(user: User) {
+    const usersArray = this.getUsersFromLocalStorage();
+
+    const isUserExist = this.checkIfUserExist(usersArray, user);
+
+    if (isUserExist) {
+      this.setCurrentUser(user);
+    } else {
+      this.errorMessageChanged$.next('Invalid username or password !');
+    }
+  }
+
+  setCurrentUser(currentUser: User) {
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    this.currentUsername = currentUser.username;
+    this.usernameChanged$.next(currentUser.username);
+  }
+
+  getUsersFromLocalStorage() {
+    const usersFromLocalStorage = localStorage.getItem('users');
+    if (usersFromLocalStorage) {
+      return JSON.parse(usersFromLocalStorage);
     }
     return [];
   }
 
-  signup(obj: User) {
-    console.log('sign up');
-    let usersArrayFromLS = localStorage.getItem('users');
-    if (usersArrayFromLS) {
-      const parsedArray: User[] = JSON.parse(usersArrayFromLS);
-      const result = parsedArray.some((item) => item.username === obj.username);
-      if (result) {
-        this.error.next('User is already registered,please log in !');
-      } else {
-        parsedArray.push(obj);
-        localStorage.setItem('currentUser', JSON.stringify(obj));
-        localStorage.setItem('users', JSON.stringify(parsedArray));
-        this.currentUserName = obj.username;
-        this.userName.next(obj.username);
-      }
-    } else {
-      const arrayOfUsers = [obj];
-      localStorage.setItem('currentUser', JSON.stringify(obj));
-      localStorage.setItem('users', JSON.stringify(arrayOfUsers));
-      this.currentUserName = obj.username;
-      this.userName.next(obj.username);
-    }
+  checkIfUserExist(usersArray: User[], user: User) {
+    return usersArray.some(
+      (item) =>
+        item.username === user.username && item.password === user.password
+    );
   }
 
-  login(obj: User) {
-    console.log('login');
-    let usersArrayFromLS = localStorage.getItem('users');
-    if (usersArrayFromLS) {
-      const parsedArray: User[] = JSON.parse(usersArrayFromLS);
-      const result = parsedArray.some(
-        (item) =>
-          item.username === obj.username && item.password === obj.password
-      );
-      console.log(result);
-      if (result) {
-        console.log('logged in succesfully');
-        localStorage.setItem('currentUser', JSON.stringify(obj));
-        this.currentUserName = obj.username;
-        this.userName.next(obj.username);
-      } else {
-        this.error.next("There's invalid username or password !")
+  getUsername() {
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        let authorithedUser: User = JSON.parse(currentUser);
+        return authorithedUser.username;
       }
+      return '';
     }
-  }
 
-  checkIfUserIsAuthorithed() {
-    const userAuthorithed = localStorage.getItem('currentUser');
-    if (userAuthorithed) {
-      let userObject: User = JSON.parse(userAuthorithed);
-      return userObject.username;
-    }
-    return '';
+
+  checkIfUserAuthenticated() {
+    return !!localStorage.getItem('currentUser');
   }
 
   logOut() {
     localStorage.removeItem('currentUser');
-    this.userName.next('');
+    this.usernameChanged$.next('');
   }
 }

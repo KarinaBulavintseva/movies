@@ -1,11 +1,12 @@
 <div class="container">
-  <section class="section section-movies">
+  <div class="movies-catalog">
     <app-filter></app-filter>
-    <div class="cards-box">
-      <div class="cards-box__cards">
+    <div class="movies-catalog__empty" *ngIf="!movies.length">Not found</div>
+    <div class="movies-catalog__cards-box" *ngIf="movies.length">
+      <div class="movies-catalog__cards">
         <app-movie *ngFor="let movie of movies" [movie]="movie"> </app-movie>
       </div>
       <app-pagination></app-pagination>
     </div>
-  </section>
+  </div>
 </div>

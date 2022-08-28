@@ -8,16 +8,22 @@
         <button type="button" class="btn-close" (click)="onClose()"></button>
       </div>
       <div class="modal-window__text-description">
-        <p class="modal-window__movie-name">
-          {{ movieDetailsObject.title
-          }}<fa-icon
-          *ngIf="isAuthorithed"
-            [ngClass]="{ clicked: isHeartClicked }"
-            class="modal-window__icon"
-            [icon]="faHeart"
-            (click)="addToFavourite()"
-          ></fa-icon>
-        </p>
+        <div class="modal-window__movie-name">
+          <p class="modal-window__name">
+            {{ movieDetailsObject.title
+            }}
+          </p>
+          <div class="modal-window__icon">
+            <fa-icon
+              *ngIf="isAuthorithed"
+              [ngClass]="{ clicked: isMovieFavourite }"
+              class="modal-window__icon-heart"
+              [icon]="faHeart"
+              (click)="addToFavourite()"
+            ></fa-icon>
+          </div>
+        </div>
+       
         <p class="modal-window__movie-tagline">
           {{ movieDetailsObject.tagline }}
         </p>

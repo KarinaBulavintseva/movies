@@ -35,17 +35,26 @@
   }
 
   &__movie-name {
+    width: 80%;
+    display: flex;
+  }
+
+  &__name {
     font-weight: 600;
     font-size: 1.6rem;
     line-height: 1.2;
   }
 
   &__icon {
+    padding-left: 3%;
+  }
+
+  &__icon-heart {
+    font-size: 1.6rem;
     cursor: pointer;
-    margin-left: 3%;
     transition: all 0.3s ease 0s;
   }
-  &__icon:hover {
+  &__icon-heart:hover {
     color: red;
   }
   &__movie-facts {
@@ -80,7 +89,7 @@
     color: white;
     display: inline-block;
     padding: 10px;
-    background-color:  #2963e1;
+    background-color: #2963e1;
     border-radius: 20px;
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.206);
     transition: all 0.3s ease 0s;
@@ -96,8 +105,8 @@
   color: red;
 }
 
-.btn-close :active, :hover, :focus {
+.btn-close :active,
+:hover,
+:focus {
   box-shadow: none !important;
-  
 }
-

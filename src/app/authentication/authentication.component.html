@@ -1,59 +1,14 @@
 <div class="auth-content">
-  <div class="auth-form">
-    <form
-      class="auth-form__form"
-      [formGroup]="authForm"
-      (ngSubmit)="onSubmit()"
-    >
-      <div class="user-data">
-        <div class="auth-form__group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            class="auth-form__input"
-            formControlName="username"
-            (click)="deleteError()"
-          />
-          <span
-            class="auth-form__error"
-            *ngIf="
-              authForm.get('username')?.invalid &&
-              authForm.get('username')?.touched
-            "
-            >Can't be longer than 10 or shorter than 4 characters !</span
-          >
-        </div>
-        <div class="auth-form__group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            class="auth-form__input"
-            formControlName="password"
-          />
-          <span
-            class="auth-form__error"
-            *ngIf="
-              authForm.get('password')?.invalid &&
-              authForm.get('password')?.touched
-            "
-            >Can't be shorter than 4 characters !</span
-          >
-        </div>
-        <span class="auth-form__error" *ngIf="errorMessage">{{
-          errorMessage
-        }}</span>
-      </div>
-
-      <div class="auth-form__buttons">
-        <button class="btn btn-primary" [disabled]="!authForm.valid">
-          {{ isLoginMode ? "Login" : "Sign up" }}
-        </button>
-        <button class="btn btn-primary" type="button" (click)="onSwitchMode()">
-          Switch to {{ isLoginMode ? "Sign up" : "Login" }}
-        </button>
-      </div>
-    </form>
+  <div class="auth-box">
+    <ul class="auth-links">
+      <li routerLinkActive="active">
+        <a routerLink="login">Log in</a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="signup">Sign up</a></li>
+    </ul>
+    <div class="auth-form">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

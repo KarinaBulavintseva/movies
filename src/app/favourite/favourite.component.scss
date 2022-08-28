@@ -1,15 +1,27 @@
-.favourite-movies {
-  border-top: 1px solid rgba(255, 255, 255, 0.217);
-  &__inner {
-    padding-top: 10%;
-  }
+:host {
+  width: 100%;
 }
 
-.cards-box {
-  min-height: 100%;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px 10px;
+.favourite {
+  height: 100%;
+  &__inner {
+    height: 100%;
+    padding-top: 8%;
+    padding-bottom: 4%;
+  }
+  &__empty {
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    color: rgb(199, 205, 210);
+    font-size: 1.5rem;
+  }
+  &__cards {
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px 15px;
+  }
 }

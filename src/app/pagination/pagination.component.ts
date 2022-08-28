@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PaginationOptions } from '../constants/PaginationConstants';
-import { PaginationParams } from '../interfaces/interfaces';
 import { DataManagingService } from '../services/data-managing.service';
 import { SearchService } from '../services/search.service';
 
@@ -16,24 +16,40 @@ export class PaginationComponent implements OnInit, OnDestroy {
   collectionSize = this.dataManagingService.maxElementsNumber;
   numberOfPage = 1;
   subscription = new Subscription();
+  currentUrl = '';
 
   constructor(
     private dataManagingService: DataManagingService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.dataManagingService.pageAndMoviesNumberChanged$.subscribe(
-      (result: PaginationParams) => {
-        this.collectionSize = result.moviesNumber;
-        this.numberOfPage = result.pageNumber;
+    this.currentUrl = this.router.url;
+    this.setSavedPage();
+    this.dataManagingService.pageChanged$.subscribe((result: number) => {
+      this.numberOfPage = result;
+    });
+    this.dataManagingService.moviesNumberChanged$.subscribe(
+      (result: number) => {
+        this.collectionSize = result;
       }
     );
   }
 
   changePage() {
-    this.dataManagingService.changePageNumber(this.numberOfPage);
-    this.searchService.changePage(this.numberOfPage);
+    if (this.currentUrl === '/') {
+      this.dataManagingService.changePageNumber(this.numberOfPage);
+    } else {
+      this.searchService.changePage(this.numberOfPage);
+    }
+    window.scrollTo(0, 0);
+  }
+
+ setSavedPage() {
+    if (this.currentUrl === '/') {
+      this.numberOfPage = this.dataManagingService.currentPage;
+    }
   }
 
   ngOnDestroy(): void {

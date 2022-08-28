@@ -5,8 +5,8 @@ import { __values } from 'tslib';
 })
 export class ShortenPipe implements PipeTransform {
   transform(value: any) {
-    if (value.length > 23) {
-      return value.substr(0,23) + '...';
+    if (value.length > 24) {
+      return value.substr(0, 24) + '...';
     }
     return value;
   }

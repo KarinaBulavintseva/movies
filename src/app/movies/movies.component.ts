@@ -14,13 +14,14 @@ export class MoviesComponent implements OnInit, OnDestroy {
   movies: Movie[] = [];
   private subscription$ = new Subscription();
 
+  notFound = false;
+
   constructor(
     private dataStorageService: DataStorageService,
     private dataManagingService: DataManagingService
   ) {}
 
   ngOnInit(): void {
-    this.subscription$.add(this.subscribeOnRecievedData());
     this.subscription$.add(
       this.dataManagingService.filterParamsChanged$.subscribe(
         (changedValues: Filter) => {
@@ -28,13 +29,15 @@ export class MoviesComponent implements OnInit, OnDestroy {
         }
       )
     );
-    this.dataManagingService.clearOptions();
   }
 
   subscribeOnRecievedData(propertiesObj?: Filter) {
     this.dataStorageService
       .getMovies(propertiesObj)
-      .subscribe((movies: Movie[]) => (this.movies = movies));
+      .subscribe((movies: Movie[]) => {
+        this.movies = movies;
+        movies.length ? (this.notFound = false) : (this.notFound = true);
+      });
   }
 
   ngOnDestroy() {
