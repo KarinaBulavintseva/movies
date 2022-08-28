@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
+    if (!this.inputText.length) return;
     this.searchService.updateTextForSearch(this.inputText);
     this.router.navigate(['search']);
   }
@@ -48,7 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogOut() {
     this.localStorageService.logOut();
-    if(this.router.url ==='/favourite') this.router.navigate(['/']);
+    if (this.router.url === '/favourite') this.router.navigate(['/']);
   }
 
   ngOnDestroy(): void {

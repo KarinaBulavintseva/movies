@@ -29,18 +29,17 @@
 
   &__name {
     white-space: nowrap;
-    color:rgb(195, 197, 199);
+    color: rgb(195, 197, 199);
   }
-  
-  
+
   &__rating-stars {
     display: flex;
     gap: 10px;
     align-items: center;
   }
 
-  &__rating-average{
-    color:rgb(195, 197, 199);
+  &__rating-average {
+    color: rgb(195, 197, 199);
   }
 }
 

@@ -4,7 +4,7 @@
       <img class="card__image" [src]="urlImage" alt="movie image" />
     </div>
     <div class="card__description">
-      <p class="card__name">{{ movie.title|shorten }}</p>
+      <p class="card__name">{{ movie.title | shorten }}</p>
       <div class="card__rating-stars" *ngIf="movie.vote_average">
         <ngb-rating [rate]="currentRating" [readonly]="true" [max]="5">
           <ng-template let-fill="fill">
@@ -13,7 +13,9 @@
             </span>
           </ng-template>
         </ngb-rating>
-        <span class="card__rating-average">{{ movie.vote_average| number: '1.1-1' }}</span>
+        <span class="card__rating-average">{{
+          movie.vote_average | number: "1.1-1"
+        }}</span>
       </div>
     </div>
   </div>

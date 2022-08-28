@@ -21,7 +21,6 @@ export class SearchService {
     this.text = text;
     this.currentPage = 1;
     this.emitSearchParamsChanging();
-    
   }
 
   changePage(page: number) {

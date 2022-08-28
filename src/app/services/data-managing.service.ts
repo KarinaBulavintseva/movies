@@ -22,7 +22,7 @@ export class DataManagingService {
 
   filterParamsChanged$ = new BehaviorSubject<Filter>(this.filterParamsObject);
   pageChanged$ = new Subject<number>();
-  moviesNumberChanged$ = new Subject<number>();
+  moviesNumberChanged$ = new BehaviorSubject<number>(this.maxElementsNumber);
 
   constructor() {}
 

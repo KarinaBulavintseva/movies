@@ -26,7 +26,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentUrl = this.router.url;
-    this.x();
+    this.setSavedPage();
     this.dataManagingService.pageChanged$.subscribe((result: number) => {
       this.numberOfPage = result;
     });
@@ -43,9 +43,10 @@ export class PaginationComponent implements OnInit, OnDestroy {
     } else {
       this.searchService.changePage(this.numberOfPage);
     }
+    window.scrollTo(0, 0);
   }
 
-  x() {
+ setSavedPage() {
     if (this.currentUrl === '/') {
       this.numberOfPage = this.dataManagingService.currentPage;
     }

@@ -35,17 +35,26 @@
   }
 
   &__movie-name {
+    width: 80%;
+    display: flex;
+  }
+
+  &__name {
     font-weight: 600;
     font-size: 1.6rem;
     line-height: 1.2;
   }
 
   &__icon {
+    padding-left: 3%;
+  }
+
+  &__icon-heart {
+    font-size: 1.6rem;
     cursor: pointer;
-    margin-left: 3%;
     transition: all 0.3s ease 0s;
   }
-  &__icon:hover {
+  &__icon-heart:hover {
     color: red;
   }
   &__movie-facts {
