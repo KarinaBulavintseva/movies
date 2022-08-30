@@ -13,9 +13,11 @@ import { SearchService } from '../../services/search.service';
 export class PaginationComponent implements OnInit, OnDestroy {
   pageSize = PaginationOptions.PAGE_SIZE;
   maxSize = PaginationOptions.MAX_SIZE;
+  numberOfPage = PaginationOptions.INITIAL_PAGE;
+
   collectionSize = this.dataManagingService.maxElementsNumber;
-  numberOfPage = 1;
-  subscription = new Subscription();
+
+  subscription$ = new Subscription();
   currentUrl = '';
 
   constructor(
@@ -27,13 +29,17 @@ export class PaginationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentUrl = this.router.url;
     this.setSavedPage();
-    this.dataManagingService.pageChanged$.subscribe((result: number) => {
-      this.numberOfPage = result;
-    });
-    this.dataManagingService.moviesNumberChanged$.subscribe(
-      (result: number) => {
-        this.collectionSize = result;
-      }
+    this.subscription$.add(
+      this.dataManagingService.pageChanged$.subscribe((result: number) => {
+        this.numberOfPage = result;
+      })
+    );
+    this.subscription$.add(
+      this.dataManagingService.moviesNumberChanged$.subscribe(
+        (result: number) => {
+          this.collectionSize = result;
+        }
+      )
     );
   }
 
@@ -53,6 +59,6 @@ export class PaginationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription$.unsubscribe();
   }
 }

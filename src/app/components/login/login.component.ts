@@ -33,8 +33,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
 
     this.loginForm = new FormGroup({
-      username: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required),
+      username: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(10),
+      ]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(20),
+      ]),
     });
   }
 

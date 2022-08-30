@@ -23,8 +23,8 @@ export class DataManagingService {
     sortingOption: this.option,
   };
 
-  filterParamsChanged$ = new BehaviorSubject<Filter>(this.filterParamsObject);
   pageChanged$ = new Subject<number>();
+  filterParamsChanged$ = new BehaviorSubject<Filter>(this.filterParamsObject);
   moviesNumberChanged$ = new BehaviorSubject<number>(this.maxElementsNumber);
 
   constructor() {}

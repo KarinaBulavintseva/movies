@@ -16,8 +16,14 @@
         />
         <span
           class="login-form__validation-error"
-          *ngIf="username?.invalid && username?.touched"
+          *ngIf="username?.errors?.['required'] && username?.touched"
           >Please enter username
+        </span>
+        <span
+          class="login-form__validation-error"
+          *ngIf="username?.errors?.['minlength'] || username?.errors?.['maxlength'] "
+        >
+          Must contain between 4 and 10 characters
         </span>
       </div>
       <div class="login-form__group">
@@ -36,8 +42,14 @@
         ></fa-icon>
         <span
           class="login-form__validation-error"
-          *ngIf="password?.invalid && password?.touched"
+          *ngIf="password?.errors?.['required'] && password?.touched"
           >Please enter password
+        </span>
+        <span
+          class="login-form__validation-error"
+          *ngIf="password?.errors?.['minlength'] || password?.errors?.['maxlength'] "
+        >
+          Must contain between 4 and 20 characters
         </span>
       </div>
       <span class="login-form__error" *ngIf="errorMessage">{{

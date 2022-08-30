@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(../../assets/images/poster_7.jpg);
+  background-image: url(../../../assets/images/poster.jpg);
   background-size: 105%;
   background-position: center -100px;
 }
@@ -26,7 +26,7 @@
 .auth-links {
   padding-left: 25px;
   padding-top: 15px;
-  color: antiquewhite;
+  color: rgb(199, 205, 210);
   font-size: 1.2rem;
   text-transform: uppercase;
   display: flex;
@@ -39,5 +39,5 @@
 }
 
 .active {
-  color: blue;
+  color: #2963e1;
 }

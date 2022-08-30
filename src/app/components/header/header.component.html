@@ -13,6 +13,7 @@
             type="text"
             placeholder="Search for a movie"
             [(ngModel)]="inputText"
+            (keydown.enter)="onSearch()"
           />
           <button class="nav__button-search" (click)="onSearch()">
             <fa-icon [icon]="faMagnifyingGlass"></fa-icon>

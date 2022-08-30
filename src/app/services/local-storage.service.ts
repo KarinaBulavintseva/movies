@@ -52,7 +52,7 @@ export class LocalStorageService {
     let usersArray = this.getUsersFromLocalStorage();
 
     if (usersArray.length) {
-      isUserExist = this.checkIfUserExist(usersArray, user);
+      isUserExist = this.checkIfUserRegistered(usersArray, user);
     }
 
     if (isUserExist) {
@@ -97,6 +97,10 @@ export class LocalStorageService {
       (item) =>
         item.username === user.username && item.password === user.password
     );
+  }
+
+  private checkIfUserRegistered(usersArray: User[], user: User) {
+    return usersArray.some((item) => item.username === user.username);
   }
 
   getUsername(): string {

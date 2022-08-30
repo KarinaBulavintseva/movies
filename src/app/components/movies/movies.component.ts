@@ -33,12 +33,14 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   private subscribeOnRecievedData(filterProperties?: Filter) {
-    this.dataStorageService
-      .getMovies(filterProperties)
-      .subscribe((movies: Movie[]) => {
-        this.movies = movies;
-        movies.length ? (this.notFound = false) : (this.notFound = true);
-      });
+    this.subscription$.add(
+      this.dataStorageService
+        .getMovies(filterProperties)
+        .subscribe((movies: Movie[]) => {
+          this.movies = movies;
+          movies.length ? (this.notFound = false) : (this.notFound = true);
+        })
+    );
   }
 
   ngOnDestroy() {

@@ -3,12 +3,14 @@ import { Genre, SortingOption } from '../interfaces/Filter';
 export const SortOptions: SortingOption[] = [
   { value: 'popularity.desc', title: 'Popularity(descending)' },
   { value: 'popularity.asc', title: 'Popularity(ascending)' },
+  { value: 'vote_count.desc', title: 'Vote count(descending)' },
+  { value: 'vote_count.asc', title: 'Vote count(ascending)' },
+  { value: 'revenue.desc', title: 'Revenue(descending)' },
+  { value: 'revenue.asc', title: 'Revenue(ascending)' },
   { value: 'vote_average.desc', title: 'Rating(descending)' },
   { value: 'vote_average.asc', title: 'Rating(ascending)' },
   { value: 'release_date.desc', title: 'Release(descending)' },
   { value: 'release_date.asc', title: 'Release(ascending)' },
-  { value: 'vote_count.desc', title: 'Vote count(descending)' },
-  { value: 'vote_count.asc', title: 'Vote count(ascending)' },
 ];
 
 export const SelectedOption: string = 'popularity.desc';
