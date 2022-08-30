@@ -1,0 +1,69 @@
+<header class="header">
+  <div class="header__inner container">
+    <div class="logo">
+      <a routerLink="/" class="logo__link">
+        <img src="assets/images/logo.png" width="40px" alt="" />
+      </a>
+    </div>
+    <nav class="nav">
+      <div class="nav__box">
+        <div class="nav__search">
+          <input
+            class="nav__input"
+            type="text"
+            placeholder="Search for a movie"
+            [(ngModel)]="inputText"
+            (keydown.enter)="onSearch()"
+          />
+          <button class="nav__button-search" (click)="onSearch()">
+            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+          </button>
+        </div>
+        <div class="nav__menu">
+          <ul class="nav__main-menu">
+            <li
+              class="nav__item"
+              routerLinkActive="nav__link-active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <a routerLink="/" class="nav__item-link">Movies</a>
+            </li>
+            <li
+              class="nav__item"
+              routerLinkActive="nav__link-active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <a routerLink="/favourite" class="nav__item-link">Favourite</a>
+            </li>
+          </ul>
+          <div class="nav__user-menu">
+            <ul class="nav__auth">
+              <li
+                class="nav__item"
+                *ngIf="!authedUsername"
+                routerLinkActive="nav__link-active"
+              >
+                <a class="nav__item-link" routerLink="authentication">
+                  Authenticate
+                </a>
+              </li>
+              <li class="nav__username" *ngIf="authedUsername">
+                {{ authedUsername }}
+              </li>
+              <div class="nav__icon">
+                <fa-icon class="nav__user-icon" [icon]="faUserCircle"></fa-icon>
+              </div>
+            </ul>
+            <button
+              class="nav__button-logout"
+              *ngIf="authedUsername"
+              (click)="onLogOut()"
+            >
+              Log out
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>

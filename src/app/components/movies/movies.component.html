@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="movies-catalog">
+    <app-filter></app-filter>
+    <div class="movies-catalog__empty" *ngIf="notFound">Not found</div>
+    <div class="movies-catalog__cards-box" *ngIf="!notFound">
+      <div class="movies-catalog__cards">
+        <app-movie *ngFor="let movie of movies" [movie]="movie"> </app-movie>
+      </div>
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+</div>

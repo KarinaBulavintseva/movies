@@ -20,7 +20,6 @@ html {
 html,
 body {
   background-color: rgb(36, 39, 46);
-  
   height: 100%;
   width: 100%;
   font-size: 100%;
@@ -51,6 +50,9 @@ li {
 a {
   text-decoration: none;
   color: inherit;
+  &:hover {
+    color: #2963e1;
+  }
 }
 
 a,
@@ -63,11 +65,10 @@ input {
   outline: none;
 }
 
-
-
 .modal-content {
   border-radius: 12px;
   overflow: hidden;
+  background-color: #e6e6e6;
 }
 
 ngb-pagination .page-link {
@@ -78,9 +79,9 @@ ngb-pagination .page-link {
   background-color: none;
 }
 
-ngb-pagination .page-item .page-link{
-  background-color:rgb(36, 39, 46);
-  color:#e4e4e6;
+ngb-pagination .page-item .page-link {
+  background-color: rgb(36, 39, 46);
+  color: #e4e4e6;
 }
 
 ngb-pagination .page-item.active .page-link {
@@ -88,32 +89,23 @@ ngb-pagination .page-item.active .page-link {
   color: #e4e4e6;
 }
 
-
-
-.modal-content{
-  background-color:#e6e6e6 ;
-}
-
-
 .wrapper {
   min-height: 100vh;
   overflow: hidden;
   width: 100%;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
-.content{
-  // border:2px solid red;
-  width:100%;
+.content {
+  width: 100%;
   min-height: 100%;
   flex-grow: 1;
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 
 .container {
-  // border:2px solid pink;
   max-width: 1200px;
   margin: 0 auto;
 }

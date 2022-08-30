@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MovieDetails, User } from '../interfaces/interfaces';
+import { MovieDetails } from '../interfaces/Movie';
+import { User } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
-  favouriteMoviesChanged$ = new Subject<MovieDetails[]>();
   currentUsername = '';
+
   usernameChanged$ = new Subject<string>();
   errorMessageChanged$ = new Subject<string>();
+  favouriteMoviesChanged$ = new Subject<MovieDetails[]>();
 
   constructor() {}
 
-  checkIfMovieIsInLocalStorage(movieObject: MovieDetails) {
+  checkIfMovieIsInLocalStorage(movieObject: MovieDetails): boolean {
     let isMovieInLocalStorage = false;
     const moviesFromLocalStorage = this.getMoviesFromLocalStorage();
 
@@ -39,7 +41,7 @@ export class LocalStorageService {
     localStorage.setItem(this.currentUsername, JSON.stringify(favouriteMovies));
   }
 
-  getMoviesFromLocalStorage() {
+  getMoviesFromLocalStorage(): MovieDetails[] {
     const moviesFromLocalStorage = localStorage.getItem(this.currentUsername);
     return moviesFromLocalStorage ? JSON.parse(moviesFromLocalStorage) : [];
   }
@@ -50,7 +52,7 @@ export class LocalStorageService {
     let usersArray = this.getUsersFromLocalStorage();
 
     if (usersArray.length) {
-      isUserExist = this.checkIfUserExist(usersArray, user);
+      isUserExist = this.checkIfUserRegistered(usersArray, user);
     }
 
     if (isUserExist) {
@@ -76,13 +78,13 @@ export class LocalStorageService {
     }
   }
 
-  setCurrentUser(currentUser: User) {
+  private setCurrentUser(currentUser: User) {
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
     this.currentUsername = currentUser.username;
     this.usernameChanged$.next(currentUser.username);
   }
 
-  getUsersFromLocalStorage() {
+  private getUsersFromLocalStorage(): User[] {
     const usersFromLocalStorage = localStorage.getItem('users');
     if (usersFromLocalStorage) {
       return JSON.parse(usersFromLocalStorage);
@@ -90,24 +92,27 @@ export class LocalStorageService {
     return [];
   }
 
-  checkIfUserExist(usersArray: User[], user: User) {
+  private checkIfUserExist(usersArray: User[], user: User) {
     return usersArray.some(
       (item) =>
         item.username === user.username && item.password === user.password
     );
   }
 
-  getUsername() {
-      const currentUser = localStorage.getItem('currentUser');
-      if (currentUser) {
-        let authorithedUser: User = JSON.parse(currentUser);
-        return authorithedUser.username;
-      }
-      return '';
+  private checkIfUserRegistered(usersArray: User[], user: User) {
+    return usersArray.some((item) => item.username === user.username);
+  }
+
+  getUsername(): string {
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      let authorithedUser: User = JSON.parse(currentUser);
+      return authorithedUser.username;
     }
+    return '';
+  }
 
-
-  checkIfUserAuthenticated() {
+  checkIfUserAuthenticated(): boolean {
     return !!localStorage.getItem('currentUser');
   }
 

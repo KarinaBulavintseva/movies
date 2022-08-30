@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import {
-  MovieDetails,
-  ResponseData,
-  SearchParams,
-} from '../interfaces/interfaces';
-import { SortOptions } from '../constants/FilterConstants';
+import { Movie, MovieDetails, ResponseData } from '../interfaces/Movie';
+import { SearchParams } from '../interfaces/Search';
+import { SelectedOption, SortOptions } from '../constants/FilterConstants';
 import { DataManagingService } from './data-managing.service';
 import { Filter } from '../interfaces/Filter';
+import { PaginationOptions } from '../constants/PaginationConstants';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -18,14 +17,14 @@ export class DataStorageService {
     private dataManagingService: DataManagingService
   ) {}
 
-  getMovies(objOfProperties?: Filter) {
+  getMovies(filterProperties?: Filter): Observable<Movie[]> {
     let url = '';
-    if (!objOfProperties) {
+    if (!filterProperties) {
       url = environment.urlMovies;
     } else {
-      let option = objOfProperties.sortingOption || SortOptions[0].value;
-      let page = objOfProperties.pageNumber || 1;
-      let genres = objOfProperties.genres || '';
+      let option = filterProperties.sortingOption || SelectedOption;
+      let page = filterProperties.pageNumber || PaginationOptions.INITIAL_PAGE;
+      let genres = filterProperties.genres || '';
 
       url = `${environment.urlMovies}&language=en-US&sort_by=${option}&page=${page}&with_genres=${genres}`;
     }
@@ -40,7 +39,7 @@ export class DataStorageService {
     );
   }
 
-  getMovieDetailsById(id: number) {
+  getMovieDetailsById(id: number): Observable<MovieDetails> {
     return this.http
       .get<MovieDetails>(
         `${environment.urlMoviesDetails}${id}?api_key=${environment.apiKey}&language=en-US`
@@ -52,7 +51,7 @@ export class DataStorageService {
       );
   }
 
-  getMoviesByQueryParams(searchParams: SearchParams) {
+  getMoviesByQueryParams(searchParams: SearchParams): Observable<Movie[]> {
     return this.http
       .get<ResponseData>(
         `${environment.urlSearch}${searchParams.text}&page=${searchParams.pageNumber}`

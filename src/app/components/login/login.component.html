@@ -1,0 +1,65 @@
+<div class="login-form">
+  <form
+    class="login-form__form"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="login-form__user-data">
+      <div class="login-form__group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          class="login-form__input"
+          formControlName="username"
+          (focus)="deleteErrorMessage()"
+        />
+        <span
+          class="login-form__validation-error"
+          *ngIf="username?.errors?.['required'] && username?.touched"
+          >Please enter username
+        </span>
+        <span
+          class="login-form__validation-error"
+          *ngIf="username?.errors?.['minlength'] || username?.errors?.['maxlength'] "
+        >
+          Must contain between 4 and 10 characters
+        </span>
+      </div>
+      <div class="login-form__group">
+        <label for="password">Password</label>
+        <input
+          [type]="isPasswordHide ? 'password' : 'text'"
+          id="password"
+          class="login-form__input"
+          formControlName="password"
+          (focus)="deleteErrorMessage()"
+        />
+        <fa-icon
+          (click)="togglePasswordVisibility()"
+          class="login-form__eye-icon"
+          [icon]="isPasswordHide ? faEyeSlash : faEye"
+        ></fa-icon>
+        <span
+          class="login-form__validation-error"
+          *ngIf="password?.errors?.['required'] && password?.touched"
+          >Please enter password
+        </span>
+        <span
+          class="login-form__validation-error"
+          *ngIf="password?.errors?.['minlength'] || password?.errors?.['maxlength'] "
+        >
+          Must contain between 4 and 20 characters
+        </span>
+      </div>
+      <span class="login-form__error" *ngIf="errorMessage">{{
+        errorMessage
+      }}</span>
+    </div>
+    <div class="login-form__button">
+      <button class="btn btn-primary" [disabled]="loginForm.invalid">
+        Log in
+      </button>
+    </div>
+  </form>
+</div>

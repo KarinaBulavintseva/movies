@@ -1,0 +1,36 @@
+:host {
+  width: 100%;
+}
+
+.movies-catalog {
+  padding-top: 8%;
+  padding-bottom: 4%;
+  max-width: 100%;
+  display: flex;
+  height: 100%;
+
+  &__empty {
+    width: 100%;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    color: rgb(199, 205, 210);
+    font-weight: 300;
+  }
+
+  &__cards-box {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 2;
+  }
+
+  &__cards {
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px 15px;
+  }
+}

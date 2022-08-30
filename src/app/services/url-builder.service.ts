@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Movie, MovieDetails } from '../interfaces/interfaces';
+import { Movie, MovieDetails } from '../interfaces/Movie';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ import { Movie, MovieDetails } from '../interfaces/interfaces';
 export class UrlBuilderService {
   constructor() {}
 
-  getPosterUrl(movie: Movie | MovieDetails) {
+  getPosterUrl(movie: Movie | MovieDetails): string {
     let definedUrl = movie.poster_path || movie.backdrop_path;
     return definedUrl
       ? environment.urlImage + definedUrl
